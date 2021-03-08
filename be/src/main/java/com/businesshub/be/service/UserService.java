@@ -28,6 +28,10 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new User("foo","foo",new ArrayList<>());
+        final UserModel user = userRepository.findByEmail(userName);
+        if(user == null) {
+            throw new UsernameNotFoundException(userName);
+        }
+        return new User(user.getEmail(),user.getPassword(),new ArrayList<>());
     }
 }

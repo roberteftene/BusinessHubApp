@@ -1,11 +1,14 @@
 package com.businesshub.be.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity(name = "user_entity")
-@Data
+@Getter
+@Setter
 public class UserModel {
 
     @Id
@@ -17,6 +20,12 @@ public class UserModel {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "birthday")
     private String birthday;
