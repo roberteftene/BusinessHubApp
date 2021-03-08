@@ -10,23 +10,30 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer uid;
+    @Column(name = "user_id")
+    private Integer uId;
 
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "birthday")
     private String birthday;
+    @Column(name = "role")
     private int userRole;
-    private int subscriptionId;
-    private int likedServiceId;
 
+    private Integer subscriptionId;
+    private Integer likedServiceId;
 
     public UserModel() {}
 
-    public UserModel(String firstName, String lastName) {
+    public UserModel(String firstName, String lastName, String birthday, int userRole, int subscriptionId, int likedServiceId) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthday = birthday;
+        this.userRole = userRole;
+        this.subscriptionId = subscriptionId;
+        this.likedServiceId = likedServiceId;
     }
 }
