@@ -6,10 +6,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name = "user_entity")
+@Entity(name = "user_details")
 @Getter
 @Setter
-public class UserModel {
+public class UserDetailsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,28 +20,18 @@ public class UserModel {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "birthday")
     private String birthday;
-    @Column(name = "role")
-    private int userRole;
 
     private Integer subscriptionId;
     private Integer likedServiceId;
 
-    public UserModel() {}
+    public UserDetailsModel() {}
 
-    public UserModel(String firstName, String lastName, String birthday, int userRole, int subscriptionId, int likedServiceId) {
+    public UserDetailsModel(String firstName, String lastName, String birthday, int subscriptionId, int likedServiceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.userRole = userRole;
         this.subscriptionId = subscriptionId;
         this.likedServiceId = likedServiceId;
     }
