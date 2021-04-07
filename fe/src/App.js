@@ -1,11 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import Routes from './routes';
+import logo from "./logo.svg";
+import "./custom/custom.scss";
+import "./App.css";
+import Routes from "./routes";
 
 function App() {
   return (
     <div>
-      <Routes/>
+      <Routes />
     </div>
   );
 }
