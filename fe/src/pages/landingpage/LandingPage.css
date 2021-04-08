@@ -5,7 +5,7 @@ dark-grey: #242526
 
 /* NAVBAR */
 .navbar {
-  background-color: #115278;
+  background-color: rgb(17, 82, 120);
 }
 
 .navbar-light .navbar-brand {
@@ -34,6 +34,20 @@ dark-grey: #242526
   color: #fff;
 }
 
+.landing-nav.scrolled {
+  background-color: #fff !important;
+  transition: background-color 200ms linear;
+  box-sizing: border-box;
+  box-shadow: 0 0.3125rem 0.9375rem 0 rgb(17 82 120 / 50%);
+}
+
+.landing-nav.scrolled .navbar-brand {
+  color: #242526;
+}
+
+.landing-nav.scrolled .collapse .navbar-nav a {
+  color: #242526 !important;
+}
 /* HEADER SECTION */
 .header-details-col {
   padding-left: 14%;
@@ -43,7 +57,8 @@ dark-grey: #242526
 #header-section {
   width: 80%;
   margin: 0 auto;
-  margin-bottom: 5%;
+  margin-top: 5%;
+  margin-bottom: 10%;
 }
 
 .header-heading {
@@ -114,6 +129,7 @@ dark-grey: #242526
 .second-hero {
   width: 150%;
   margin-top: 5%;
+  opacity: 0;
 }
 
 .second-details-col {
@@ -144,6 +160,7 @@ dark-grey: #242526
 .third-hero {
   margin-top: 10%;
   width: 160%;
+  opacity: 0;
 }
 
 /* SECTION FOUR */
@@ -160,6 +177,7 @@ dark-grey: #242526
 .fourth-hero {
   width: 100%;
   margin-top: 10%;
+  opacity: 0;
 }
 
 .fourth-heading {
@@ -178,6 +196,7 @@ dark-grey: #242526
   margin-top: 10%;
   width: 120%;
   margin-left: 10%;
+  opacity: 0;
 }
 
 .five-form {
@@ -227,4 +246,32 @@ footer {
 
 .footer-ref ul li {
   height: 15px;
+}
+
+/* ANIMATIONS */
+
+@keyframes animate-heroes-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  30% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes animate-heroes-right {
+  0% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+  30% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }

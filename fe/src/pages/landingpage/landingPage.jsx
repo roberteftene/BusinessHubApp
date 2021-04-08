@@ -12,19 +12,80 @@ import heroFive from "../../_assets/_img/second-hero.png";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import React from "react";
+import $ from "jquery";
 import "./LandingPage.css";
 
 function LandingPage() {
+  $(function () {
+    $(document).scroll(function () {
+      var $nav = $(".landing-nav");
+      $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+    });
+  });
+
+  $(document).ready(() => {
+    $(".second-hero").waypoint(
+      () => {
+        $(".second-hero").css({
+          animation: "animate-heroes-left 1s",
+          opacity: "1",
+        });
+      },
+      { offset: "75%" }
+    );
+  });
+
+  $(document).ready(() => {
+    $(".third-hero").waypoint(
+      () => {
+        $(".third-hero").css({
+          animation: "animate-heroes-right 1s",
+          opacity: "1",
+        });
+      },
+      { offset: "75%" }
+    );
+  });
+
+  $(document).ready(() => {
+    $(".fourth-hero").waypoint(
+      () => {
+        $(".fourth-hero").css({
+          animation: "animate-heroes-left 1s",
+          opacity: "1",
+        });
+      },
+      { offset: "75%" }
+    );
+  });
+
+  $(document).ready(() => {
+    $(".five-hero").waypoint(
+      () => {
+        $(".five-hero").css({
+          animation: "animate-heroes-right 1s",
+          opacity: "1",
+        });
+      },
+      { offset: "75%" }
+    );
+  });
+
+  const script = document.createElement("script");
+  script.src = "../../../public/_assets/js/jquery.waypoints.min.js";
+  script.async = true;
+  document.body.appendChild(script);
+
   return (
     <div className="landing-layout">
-      <Navbar className="landing-nav">
+      <Navbar className="landing-nav" fixed="top">
         <Navbar.Brand href="#">HubExp</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav>
             <Nav.Link href="#home">Add service</Nav.Link>
             <Nav.Link href="#features">Log in</Nav.Link>
-            <Nav.Link href="#pricing">Register</Nav.Link>
+            <Nav.Link href="/signup">Register</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -62,7 +123,7 @@ function LandingPage() {
           <Row>
             <Col>
               <img
-                className="second-hero"
+                className="second-hero hero-left"
                 src={heroTwo}
                 alt="Vector graphic"
               ></img>
@@ -102,7 +163,7 @@ function LandingPage() {
             </Col>
             <Col>
               <img
-                className="third-hero"
+                className="third-hero hero-right"
                 src={heroThird}
                 alt="Review graphic"
               ></img>
@@ -116,7 +177,7 @@ function LandingPage() {
           <Row>
             <Col>
               <img
-                className="fourth-hero"
+                className="fourth-hero hero-left"
                 src={heroFourth}
                 alt="Vector graphic"
               ></img>

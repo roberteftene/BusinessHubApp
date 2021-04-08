@@ -1,5 +1,6 @@
-import logo from "./logo.svg";
 import "./custom/custom.scss";
+import "./_assets/js/loader";
+import "./_assets/js/jquery.waypoints.min";
 import "./App.css";
 import Routes from "./routes";
 
