@@ -84,7 +84,7 @@ function LandingPage() {
         <Navbar.Collapse className="justify-content-end">
           <Nav>
             <Nav.Link href="#home">Add service</Nav.Link>
-            <Nav.Link href="#features">Log in</Nav.Link>
+            <Nav.Link href="/signin">Log in</Nav.Link>
             <Nav.Link href="/signup">Register</Nav.Link>
           </Nav>
         </Navbar.Collapse>
