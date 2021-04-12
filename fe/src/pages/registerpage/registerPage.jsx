@@ -11,7 +11,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import AuthService from "../../services/auth/auth.service";
 
 function RegisterPage() {
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasService, setHasService] = useState(false);
@@ -20,7 +20,7 @@ function RegisterPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let valid = true;
-    if (fullName.length < 3) {
+    if (username.length < 3) {
       cogoToast.error("Please enter the entire name");
       valid = false;
     }
@@ -34,7 +34,7 @@ function RegisterPage() {
     }
 
     if (valid) {
-      AuthService.register(fullName, email, password)
+      AuthService.register(username, email, password)
         .then(() => {
           cogoToast.success("Successfully registered");
           history.push("/home");
@@ -65,13 +65,13 @@ function RegisterPage() {
           <h1>Sign Up</h1>
           <Form>
             <Form.Group controlId="formName">
-              <Form.Label>Full name</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
-                name="fullname"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Enter full name"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter username"
               />
             </Form.Group>
 
