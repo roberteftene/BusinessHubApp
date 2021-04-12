@@ -9,10 +9,10 @@ import Button from "react-bootstrap/Button";
 function LoginPage() {
   return (
     <Row>
-      <Col className="register-col register-details-col">
-        <div className="register-details-container">
-          <h1 className="register-details-heading">HubExp</h1>
-          <p className="register-details-description">
+      <Col className="presentation-col details-col">
+        <div className="details-container">
+          <h1 className="details-heading">HubExp</h1>
+          <p className="details-description">
             Create an account to be able to benefit from discounts on your
             favorite services, but also on notifications to stay up to date with
             everything that happens. If you are a happy owner of a service,
@@ -24,8 +24,8 @@ function LoginPage() {
           </div>
         </div>
       </Col>
-      <Col className="register-col register-form-col">
-        <div className="register-form-container">
+      <Col className="presentation-col form-col">
+        <div className="form-container">
           <h1>Sign In</h1>
           <Form>
             <Form.Group controlId="formName">
