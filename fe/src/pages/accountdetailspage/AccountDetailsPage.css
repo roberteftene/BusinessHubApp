@@ -13,11 +13,11 @@
 
 .greetings-block-col {
   display: flex;
+  justify-content: flex-end;
 }
 
 .greetings-block {
   width: 60%;
-  justify-content: flex-end;
 }
 
 .greetings-heading {
@@ -40,4 +40,31 @@
 .greetings-rocket {
   width: 40%;
   transform: rotate(10deg);
+}
+
+.additional-details-form-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.additional-details-form {
+  background-color: rgb(255, 255, 255);
+  padding: 10%;
+  padding-top: 2%;
+  width: 40%;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.details-form {
+  width: 100%;
+}
+
+.details-form-headThree {
+  margin-bottom: 10%;
+  color: #115278;
+  margin-top: 10%;
+  font-weight: bold;
 }
