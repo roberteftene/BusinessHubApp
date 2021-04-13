@@ -1,0 +1,43 @@
+.detailsPage-container {
+  background-color: #242526;
+  min-height: 100vh;
+}
+
+.greetings-container {
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  background-color: #115278;
+  padding: 2%;
+}
+
+.greetings-block-col {
+  display: flex;
+}
+
+.greetings-block {
+  width: 60%;
+  justify-content: flex-end;
+}
+
+.greetings-heading {
+  color: #fff;
+  font-size: 72px;
+  font-weight: bold;
+}
+
+.greetings-message {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.greetings-image {
+  display: flex;
+  justify-content: start;
+}
+
+.greetings-rocket {
+  width: 40%;
+  transform: rotate(10deg);
+}
