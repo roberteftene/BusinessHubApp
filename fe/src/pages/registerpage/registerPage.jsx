@@ -37,7 +37,9 @@ function RegisterPage() {
       AuthService.register(username, email, password)
         .then(() => {
           cogoToast.success("Successfully registered");
-          history.push("/home");
+          AuthService.login(username, password).then(() =>
+            history.push("/accountdetails")
+          );
         })
         .catch((e) => cogoToast.warn(e.message));
     }

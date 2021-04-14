@@ -10,11 +10,12 @@ class AuthService {
         password,
       })
       .then((res) => {
-        if (res.data.accessToken) {
+        if (res.data.token) {
           localStorage.setItem("user", JSON.stringify(res.data));
         }
         return res.data;
-      });
+      })
+      .catch((err) => console.log(err.message));
   }
 
   logout() {

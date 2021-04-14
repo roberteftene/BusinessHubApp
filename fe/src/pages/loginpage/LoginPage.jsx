@@ -27,7 +27,7 @@ function LoginPage() {
 
     if (valid) {
       AuthService.login(username, password)
-        .then(() => {
+        .then((res) => {
           cogoToast.success("Welcome " + username);
           history.push("/home");
         })

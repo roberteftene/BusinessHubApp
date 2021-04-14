@@ -4,8 +4,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./AccountDetailsPage.css";
 import RocketImage from "../../_assets/_img/7750-[Converted].png";
+import AuthService from "../../services/auth/auth.service";
 
 function AccountDetailsPage() {
+  const currentUser = AuthService.getLoggedUser();
   const workingDays = [
     "Monday",
     "Thursday",
@@ -21,7 +23,7 @@ function AccountDetailsPage() {
       <Row className="greetings-container">
         <Col sm={7} className="greetings-block-col">
           <div className="greetings-block">
-            <h1 className="greetings-heading">Hi Robert!</h1>
+            <h1 className="greetings-heading">Hi {currentUser.username}!</h1>
             <p className="greetings-message">
               We are glad to see that you want to integrate your business in our
               hub. Please provide us a few more infos about you and your
