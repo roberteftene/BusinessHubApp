@@ -30,12 +30,6 @@ public class BusinessService  {
 
     public List<ServiceModel> getAllServicesByUserId(long userId) {
         List<ServiceModel> allServices = serviceRepository.findAll();
-//        List<ServiceModel> userServices = new ArrayList<>();
-//        for (ServiceModel serviceModel : allServices) {
-//            if(serviceModel.getUserAccount().getId() == userId)
-//                userServices.add(serviceModel);
-//        }
-//        return userServices;
         return allServices.stream().filter(service -> service.getUserAccount().getId() == userId).collect(Collectors.toList());
     }
 
