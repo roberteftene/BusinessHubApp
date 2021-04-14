@@ -68,3 +68,12 @@
   margin-top: 10%;
   font-weight: bold;
 }
+
+.check-working-day-container {
+  margin-bottom: 1.9rem;
+}
+
+.working-hours-description {
+  color: #6c757d;
+  font-size: 13px;
+}

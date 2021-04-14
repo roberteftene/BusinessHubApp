@@ -6,6 +6,16 @@ import "./AccountDetailsPage.css";
 import RocketImage from "../../_assets/_img/7750-[Converted].png";
 
 function AccountDetailsPage() {
+  const workingDays = [
+    "Monday",
+    "Thursday",
+    "Wednesday",
+    "Tuesday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
   return (
     <div className="detailsPage-container">
       <Row className="greetings-container">
@@ -77,7 +87,7 @@ function AccountDetailsPage() {
                 placeholder="Enter service street number"
               />
             </Form.Group>
-
+            <h5>Service Profile</h5>
             <Form.Group controlId="formDescription">
               <Form.Label>Description</Form.Label>
               <Form.Text className="text-muted">
@@ -101,10 +111,86 @@ function AccountDetailsPage() {
                 <option value="">Other</option>
               </Form.Control>
             </Form.Group>
-            {/* TODO 
-            checkboxes with the days of the week and if selected input time range
-            prices and products? PDF or PNG or what??
-            */}
+            <h5>Working hours</h5>
+            <p className="working-hours-description">
+              Please check below the available days of your service and also
+              fill the working hours for each selected day. <br></br>
+              <b>
+                You can update this schedule whenever you want in the
+                application dashboard.{" "}
+              </b>
+            </p>
+            <Row>
+              <Col>
+                <p>Working days</p>
+                {workingDays.map((day) => {
+                  return (
+                    <div
+                      key={`check-container-${day}`}
+                      className="check-working-day-container"
+                    >
+                      <Form.Check
+                        type="checkbox"
+                        id={`check-${day}`}
+                        label={`${day}`}
+                      />
+                    </div>
+                  );
+                })}
+              </Col>
+              <Col>
+                <p>From</p>
+                {workingDays.map((day) => {
+                  return (
+                    <div
+                      key={`check-starting-container-${day}`}
+                      className="from-input-container"
+                    >
+                      <Form.Group controlId="startingHour">
+                        <Form.Control
+                          id={`check-starting-${day}`}
+                          type="number"
+                          placeholder="10"
+                        />
+                      </Form.Group>
+                    </div>
+                  );
+                })}
+              </Col>
+              <Col>
+                <p>To</p>
+                {workingDays.map((day) => {
+                  return (
+                    <div
+                      key={`check-ending-container-${day}`}
+                      className="to-input-container"
+                    >
+                      <Form.Group controlId="endingHour">
+                        <Form.Control
+                          id={`check-ending-${day}`}
+                          type="number"
+                          placeholder="18"
+                        />
+                      </Form.Group>
+                    </div>
+                  );
+                })}
+              </Col>
+            </Row>
+
+            <h5>Products and prices</h5>
+            <div className="mb-3">
+              <Form.File id="form-add-file">
+                <Form.Text>
+                  Please upload a clear image or a pdf document with your prices
+                  towards adding it by us in the application. After that you
+                  will be able to modify them easily in the application
+                  dashboard.
+                </Form.Text>
+                <Form.File.Input />
+              </Form.File>
+            </div>
+
             <Button variant="primary" type="submit">
               Start Exploring
             </Button>
