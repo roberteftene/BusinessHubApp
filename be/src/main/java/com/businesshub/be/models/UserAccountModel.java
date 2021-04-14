@@ -40,6 +40,9 @@ public class UserAccountModel {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "userAccount")
+    private UserDetailsModel userDetails;
+
     public UserAccountModel() {
     }
 

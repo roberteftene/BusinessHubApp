@@ -1,5 +1,7 @@
 package com.businesshub.be.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,16 +23,20 @@ public class ServiceModel {
     private String servicePhone;
     @Column(name = "description")
     private String serviceDescription;
-    private Integer userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private UserAccountModel userAccount;
 
     public ServiceModel() {
     }
 
-    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, Integer userId) {
+    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription,UserAccountModel userAccountModel) {
         this.serviceName = serviceName;
         this.serviceEmail = serviceEmail;
         this.servicePhone = servicePhone;
         this.serviceDescription = serviceDescription;
-        this.userId = userId;
+        this.userAccount = userAccountModel;
     }
 }

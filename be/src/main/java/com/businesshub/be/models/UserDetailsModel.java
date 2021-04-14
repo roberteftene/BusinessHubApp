@@ -23,6 +23,10 @@ public class UserDetailsModel {
     @Column(name = "birthday")
     private String birthday;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "useraccount_id",referencedColumnName = "id")
+    private UserAccountModel userAccount;
+
     private Integer subscriptionId;
     private Integer likedServiceId;
 

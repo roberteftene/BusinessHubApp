@@ -1,0 +1,44 @@
+package com.businesshub.be.service.BusinessesService;
+
+import com.businesshub.be.models.ServiceModel;
+import com.businesshub.be.models.UserAccountModel;
+import com.businesshub.be.repository.ServiceRepository;
+import com.businesshub.be.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class BusinessService  {
+
+    @Autowired
+    ServiceRepository serviceRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    public ServiceModel addService(ServiceModel serviceModel, long userId) {
+        UserAccountModel userAccountModel = userRepository.findById(userId).get();
+        serviceModel.setUserAccount(userAccountModel);
+        serviceRepository.save(serviceModel);
+        return serviceModel;
+    }
+
+    public List<ServiceModel> getAllServicesByUserId(long userId) {
+        List<ServiceModel> allServices = serviceRepository.findAll();
+//        List<ServiceModel> userServices = new ArrayList<>();
+//        for (ServiceModel serviceModel : allServices) {
+//            if(serviceModel.getUserAccount().getId() == userId)
+//                userServices.add(serviceModel);
+//        }
+//        return userServices;
+        return allServices.stream().filter(service -> service.getUserAccount().getId() == userId).collect(Collectors.toList());
+    }
+
+
+
+}
