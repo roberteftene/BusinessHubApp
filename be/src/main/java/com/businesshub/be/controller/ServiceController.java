@@ -1,8 +1,10 @@
 package com.businesshub.be.controller;
 
+import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.ServiceModel;
 import com.businesshub.be.service.BusinessesService.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,7 @@ public class ServiceController {
     @PostMapping("/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
-    public ServiceModel addService(@RequestBody ServiceModel serviceModel, @PathVariable(value = "id") long id) {
+    public ServiceModel addService(@RequestBody ServiceModel serviceModel, @PathVariable(value = "id") long id) throws MissingSubscriptionException {
         return businessService.addService(serviceModel,id);
     }
 
@@ -29,4 +31,5 @@ public class ServiceController {
     public List<ServiceModel> getServicesByUserId(@PathVariable(value = "id") long id) {
         return  businessService.getAllServicesByUserId(id);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.businesshub.be.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,9 @@ public class UserDetailsModel {
     @Column(name = "birthday")
     private String birthday;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "useraccount_id",referencedColumnName = "id")
+    @JsonIgnore
     private UserAccountModel userAccount;
 
     private Integer subscriptionId;

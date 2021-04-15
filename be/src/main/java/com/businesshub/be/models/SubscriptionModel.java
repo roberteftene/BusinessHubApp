@@ -1,5 +1,6 @@
 package com.businesshub.be.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,6 +20,11 @@ public class SubscriptionModel {
     private double subscriptionPrice;
     @Column(name = "description")
     private String subscriptionDescription;
+
+    @OneToOne
+    @JoinColumn(name = "useraccount_id",referencedColumnName = "id")
+    @JsonIgnore
+    private UserAccountModel userAccount;
 
     public SubscriptionModel() {
     }

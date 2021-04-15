@@ -1,5 +1,6 @@
 package com.businesshub.be.service.BusinessesService;
 
+import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.ServiceModel;
 import com.businesshub.be.models.UserAccountModel;
 import com.businesshub.be.repository.ServiceRepository;
@@ -7,9 +8,7 @@ import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,11 +20,16 @@ public class BusinessService  {
     @Autowired
     UserRepository userRepository;
 
-    public ServiceModel addService(ServiceModel serviceModel, long userId) {
+    public ServiceModel addService(ServiceModel serviceModel, long userId) throws MissingSubscriptionException {
         UserAccountModel userAccountModel = userRepository.findById(userId).get();
+        if(userAccountModel.getSubscriptionModel() == null){
+            throw new MissingSubscriptionException("You must apply for a subscription");
+        } else  {
         serviceModel.setUserAccount(userAccountModel);
         serviceRepository.save(serviceModel);
         return serviceModel;
+        }
+
     }
 
     public List<ServiceModel> getAllServicesByUserId(long userId) {

@@ -40,8 +40,11 @@ public class UserAccountModel {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "userAccount")
+    @OneToOne(mappedBy = "userAccount",orphanRemoval = true)
     private UserDetailsModel userDetails;
+
+    @OneToOne(mappedBy = "userAccount",orphanRemoval = true)
+    private SubscriptionModel subscriptionModel;
 
     public UserAccountModel() {
     }
