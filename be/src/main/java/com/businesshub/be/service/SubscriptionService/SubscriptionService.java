@@ -18,6 +18,7 @@ public class SubscriptionService {
 
     public SubscriptionModel addSubscription(SubscriptionModel subscriptionModel, Long id) {
         UserAccountModel userAccountModel = userRepository.findById(id).get();
+
         subscriptionModel.setUserAccount(userAccountModel);
         return subscriptionRepository.save(subscriptionModel);
     }

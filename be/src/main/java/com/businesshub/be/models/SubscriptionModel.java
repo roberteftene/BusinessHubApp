@@ -15,7 +15,7 @@ public class SubscriptionModel {
     private Integer subscriptionId;
 
     @Column(name = "type")
-    private String subscriptionType;
+    private ESubscriptionType type;
     @Column(name = "price")
     private double subscriptionPrice;
     @Column(name = "description")
@@ -29,8 +29,8 @@ public class SubscriptionModel {
     public SubscriptionModel() {
     }
 
-    public SubscriptionModel(String subscriptionType, double subscriptionPrice, String subscriptionDescription) {
-        this.subscriptionType = subscriptionType;
+    public SubscriptionModel(ESubscriptionType subscriptionType, double subscriptionPrice, String subscriptionDescription) {
+        this.type = subscriptionType;
         this.subscriptionPrice = subscriptionPrice;
         this.subscriptionDescription = subscriptionDescription;
     }

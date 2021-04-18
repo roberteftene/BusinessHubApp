@@ -3,6 +3,7 @@ package com.businesshub.be.service.BusinessesService;
 import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.ServiceModel;
 import com.businesshub.be.models.UserAccountModel;
+import com.businesshub.be.models.WorkingHoursModel;
 import com.businesshub.be.repository.ServiceRepository;
 import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class BusinessService  {
             throw new MissingSubscriptionException("You must apply for a subscription");
         } else  {
         serviceModel.setUserAccount(userAccountModel);
+        List<WorkingHoursModel> workingHoursModels = serviceModel.getWorkingHoursList();
+        workingHoursModels.forEach(workingHour -> workingHour.setServiceModel(serviceModel));
         serviceRepository.save(serviceModel);
         return serviceModel;
         }

@@ -41,28 +41,23 @@ function AccountDetailsPage() {
         <div className="additional-details-form">
           <Form className="details-form">
             <h3 className="details-form-headThree">Personal Details</h3>
-
             <Form.Group controlId="formFirstName">
               <Form.Label>First name</Form.Label>
               <Form.Control type="text" placeholder="Enter first name" />
             </Form.Group>
-
             <Form.Group controlId="formLastName">
               <Form.Label>Last name</Form.Label>
               <Form.Control type="text" placeholder="Enter last name" />
             </Form.Group>
-
             <Form.Group controlId="formBirthday">
               <Form.Label>Birthday</Form.Label>
               <Form.Control type="date" placeholder="Enter date of birth" />
             </Form.Group>
-
             <h3 className="details-form-headThree">Service details</h3>
             <p>
               If you don't have all the details needed below you can also
               complete later in the application dashboard.
             </p>
-
             <Form.Group controlId="formServiceName">
               <Form.Label>Service name</Form.Label>
               <Form.Text className="text-muted">
@@ -70,18 +65,27 @@ function AccountDetailsPage() {
               </Form.Text>
               <Form.Control type="text" placeholder="Enter service name" />
             </Form.Group>
-
+            <Form.Group controlId="formServiceName">
+              <Form.Label>Service email</Form.Label>
+              <Form.Text className="text-muted">
+                Having a business email can create new threads for
+                communications.
+              </Form.Text>
+              <Form.Control type="text" placeholder="Enter service name" />
+            </Form.Group>
+            <Form.Group controlId="formServiceName">
+              <Form.Label>Service phone</Form.Label>
+              <Form.Control type="text" placeholder="Enter service name" />
+            </Form.Group>
             <h5>Service location</h5>
             <Form.Group controlId="formCity">
               <Form.Label>City</Form.Label>
               <Form.Control type="text" placeholder="Enter service city" />
             </Form.Group>
-
             <Form.Group controlId="formStreet">
               <Form.Label>Street</Form.Label>
               <Form.Control type="text" placeholder="Enter service street" />
             </Form.Group>
-
             <Form.Group controlId="formNumber">
               <Form.Label>Number</Form.Label>
               <Form.Control
@@ -98,7 +102,6 @@ function AccountDetailsPage() {
               </Form.Text>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
-
             <Form.Group controlId="formServiceCategory">
               <Form.Label>Service category</Form.Label>
               <Form.Text className="text-muted">
@@ -179,7 +182,6 @@ function AccountDetailsPage() {
                 })}
               </Col>
             </Row>
-
             <h5>Products and prices</h5>
             <div className="mb-3">
               <Form.File id="form-add-file">
@@ -192,7 +194,8 @@ function AccountDetailsPage() {
                 <Form.File.Input />
               </Form.File>
             </div>
-
+            <h5>Subscription</h5>
+            {/* TODO get from db subscriptions */}
             <Button variant="primary" type="submit">
               Start Exploring
             </Button>
