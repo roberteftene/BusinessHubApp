@@ -5,10 +5,12 @@ import Button from "react-bootstrap/Button";
 import "./AccountDetailsPage.css";
 import RocketImage from "../../_assets/_img/7750-[Converted].png";
 import AuthService from "../../services/auth/auth.service";
+import SubscriptionService from "../../services/subscription/subscription.service";
 import cogoToast from "cogo-toast";
 
 function AccountDetailsPage() {
   const currentUser = AuthService.getLoggedUser();
+
   const workingDays = [
     "Monday",
     "Thursday",
@@ -30,8 +32,13 @@ function AccountDetailsPage() {
   const [serviceNumber, setServiceNumber] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
   const [serviceCategory, setServiceCategory] = useState("");
+  const [subscriptions, setSubscriptions] = useState([]);
 
   let workingSchedule = [];
+
+  SubscriptionService.getSubscriptions().then((res) => {
+    setSubscriptions(res.data);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -298,7 +305,7 @@ function AccountDetailsPage() {
               </Form.File>
             </div>
             <h5>Subscription</h5>
-            {/* TODO get from db subscriptions */}
+            {/* TODO: get from db subscriptions */}
             <Button
               variant="primary"
               type="submit"
