@@ -31,7 +31,6 @@ function AccountDetailsPage() {
   const [serviceStreet, setServiceStreet] = useState("");
   const [serviceNumber, setServiceNumber] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
-  const [serviceCategory, setServiceCategory] = useState("");
   const [subscriptions, setSubscriptions] = useState([]);
 
   let workingSchedule = [];
