@@ -14,10 +14,12 @@ public class AccountDetailsController {
     @Autowired
     AccountDetailsService accountDetailsService;
 
-    @PostMapping("/{id}")
+    @PostMapping("/{uid}/{subscriptionId}")
     @ResponseBody
-    public UserDetailsModel addDetails(@RequestBody UserDetailsModel userDetailsModel, @PathVariable(value = "id") long userId) {
-        accountDetailsService.addDetails(userDetailsModel,userId);
+    public UserDetailsModel addDetails(@RequestBody UserDetailsModel userDetailsModel,
+                                       @PathVariable(value = "uid") long userId,
+                                       @PathVariable(value = "subscriptionId") Integer subscriptionId) {
+        accountDetailsService.addDetails(userDetailsModel,userId,subscriptionId);
         return  userDetailsModel;
     }
 

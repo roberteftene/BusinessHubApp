@@ -43,8 +43,7 @@ public class UserAccountModel {
     @OneToOne(mappedBy = "userAccount",orphanRemoval = true)
     private UserDetailsModel userDetails;
 
-    @OneToOne(mappedBy = "userAccount",orphanRemoval = true)
-    private SubscriptionModel subscriptionModel;
+
 
     public UserAccountModel() {
     }

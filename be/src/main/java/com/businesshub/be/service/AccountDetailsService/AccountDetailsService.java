@@ -1,16 +1,13 @@
 package com.businesshub.be.service.AccountDetailsService;
 
+import com.businesshub.be.models.SubscriptionModel;
 import com.businesshub.be.models.UserAccountModel;
 import com.businesshub.be.models.UserDetailsModel;
-import com.businesshub.be.payload.response.MessageResponse;
 import com.businesshub.be.repository.AccountDetailsRepository;
+import com.businesshub.be.repository.SubscriptionRepository;
 import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.stream.Collectors;
 
 @Service
 public class AccountDetailsService {
@@ -19,11 +16,19 @@ public class AccountDetailsService {
     AccountDetailsRepository accountDetailsRepository;
 
     @Autowired
+    SubscriptionRepository subscriptionRepository;
+
+    @Autowired
     UserRepository userRepository;
 
-    public UserDetailsModel addDetails(UserDetailsModel userDetailsModel, long userId) {
+    public UserDetailsModel addDetails(UserDetailsModel userDetailsModel, long userId, Integer serviceId) {
         UserAccountModel userAccountModel = userRepository.findById(userId).get();
+        SubscriptionModel subscriptionModel = subscriptionRepository.findById(serviceId).get();
+
+        subscriptionModel.getUserDetailsModelList().add(userDetailsModel);
         userDetailsModel.setUserAccount(userAccountModel);
+        userDetailsModel.setSubscriptionModel(subscriptionModel);
+
         accountDetailsRepository.save(userDetailsModel);
         return userDetailsModel;
     }

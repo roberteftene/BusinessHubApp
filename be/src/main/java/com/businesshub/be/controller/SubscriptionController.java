@@ -15,10 +15,4 @@ public class SubscriptionController {
     @Autowired
     SubscriptionService subscriptionService;
 
-    @PostMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('BUSINESSOWNER')")
-    @ResponseBody
-    public SubscriptionModel addSubscription(@RequestBody SubscriptionModel subscriptionModel, @PathVariable(value = "id") Long id) {
-        return subscriptionService.addSubscription(subscriptionModel,id);
-    }
 }

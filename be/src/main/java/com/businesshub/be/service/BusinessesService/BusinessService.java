@@ -3,6 +3,7 @@ package com.businesshub.be.service.BusinessesService;
 import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.ServiceModel;
 import com.businesshub.be.models.UserAccountModel;
+import com.businesshub.be.models.UserDetailsModel;
 import com.businesshub.be.models.WorkingHoursModel;
 import com.businesshub.be.repository.ServiceRepository;
 import com.businesshub.be.repository.UserRepository;
@@ -23,7 +24,9 @@ public class BusinessService  {
 
     public ServiceModel addService(ServiceModel serviceModel, long userId) throws MissingSubscriptionException {
         UserAccountModel userAccountModel = userRepository.findById(userId).get();
-        if(userAccountModel.getSubscriptionModel() == null){
+        UserDetailsModel userDetailsModel = userAccountModel.getUserDetails();
+
+        if(userDetailsModel.getSubscriptionModel() == null){
             throw new MissingSubscriptionException("You must apply for a subscription");
         } else  {
         serviceModel.setUserAccount(userAccountModel);

@@ -1,6 +1,7 @@
 package com.businesshub.be.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +30,10 @@ public class UserDetailsModel {
     @JsonIgnore
     private UserAccountModel userAccount;
 
-    private Integer subscriptionId;
-    private Integer likedServiceId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "subscription_id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private SubscriptionModel subscriptionModel;
 
     public UserDetailsModel() {}
 
@@ -38,7 +41,13 @@ public class UserDetailsModel {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.subscriptionId = subscriptionId;
-        this.likedServiceId = likedServiceId;
+    }
+
+    public UserDetailsModel(String firstName, String lastName, String birthday, UserAccountModel userAccount, SubscriptionModel subscriptionModel) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.userAccount = userAccount;
+        this.subscriptionModel = subscriptionModel;
     }
 }

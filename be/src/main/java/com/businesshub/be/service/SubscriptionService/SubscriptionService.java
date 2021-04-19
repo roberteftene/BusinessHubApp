@@ -2,6 +2,8 @@ package com.businesshub.be.service.SubscriptionService;
 
 import com.businesshub.be.models.SubscriptionModel;
 import com.businesshub.be.models.UserAccountModel;
+import com.businesshub.be.models.UserDetailsModel;
+import com.businesshub.be.repository.AccountDetailsRepository;
 import com.businesshub.be.repository.SubscriptionRepository;
 import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,7 @@ public class SubscriptionService {
     SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    UserRepository userRepository;
+    AccountDetailsRepository accountDetailsRepository;
 
-    public SubscriptionModel addSubscription(SubscriptionModel subscriptionModel, Long id) {
-        UserAccountModel userAccountModel = userRepository.findById(id).get();
-
-        subscriptionModel.setUserAccount(userAccountModel);
-        return subscriptionRepository.save(subscriptionModel);
-    }
 
 }

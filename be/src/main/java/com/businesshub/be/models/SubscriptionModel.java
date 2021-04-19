@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "subscription")
 @Data
@@ -15,23 +16,29 @@ public class SubscriptionModel {
     private Integer subscriptionId;
 
     @Column(name = "type")
-    private ESubscriptionType type;
+    private String type;
     @Column(name = "price")
     private double subscriptionPrice;
     @Column(name = "description")
     private String subscriptionDescription;
 
-    @OneToOne
-    @JoinColumn(name = "useraccount_id",referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
-    private UserAccountModel userAccount;
+    private List<UserDetailsModel> userDetailsModelList;
 
     public SubscriptionModel() {
     }
 
-    public SubscriptionModel(ESubscriptionType subscriptionType, double subscriptionPrice, String subscriptionDescription) {
+    public SubscriptionModel(String subscriptionType, double subscriptionPrice, String subscriptionDescription) {
         this.type = subscriptionType;
         this.subscriptionPrice = subscriptionPrice;
         this.subscriptionDescription = subscriptionDescription;
+    }
+
+    public SubscriptionModel(String type, double subscriptionPrice, String subscriptionDescription, List<UserDetailsModel> userDetailsModelList) {
+        this.type = type;
+        this.subscriptionPrice = subscriptionPrice;
+        this.subscriptionDescription = subscriptionDescription;
+        this.userDetailsModelList = userDetailsModelList;
     }
 }
