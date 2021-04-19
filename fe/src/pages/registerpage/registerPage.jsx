@@ -32,9 +32,14 @@ function RegisterPage() {
       cogoToast.error("Please enter a stronger password");
       valid = false;
     }
+    let role = ["user"];
+    if (hasService) {
+      role.push("businessowner");
+    }
+    console.log(role);
 
     if (valid) {
-      AuthService.register(username, email, password)
+      AuthService.register(username, email, password, role)
         .then(() => {
           cogoToast.success("Successfully registered");
           AuthService.login(username, password).then(() =>
