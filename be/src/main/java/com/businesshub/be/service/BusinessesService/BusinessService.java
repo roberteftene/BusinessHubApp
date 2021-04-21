@@ -31,9 +31,14 @@ public class BusinessService  {
         } else  {
         serviceModel.setUserAccount(userAccountModel);
         List<WorkingHoursModel> workingHoursModels = serviceModel.getWorkingHoursList();
+        if(workingHoursModels.equals(null)) {
+            throw new NullPointerException("There is no working hour schedule");
+        }else {
         workingHoursModels.forEach(workingHour -> workingHour.setServiceModel(serviceModel));
         serviceRepository.save(serviceModel);
         return serviceModel;
+        }
+
         }
 
     }

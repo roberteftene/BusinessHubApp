@@ -29,12 +29,12 @@ public class ServiceModel {
     @Column(name = "location")
     private String location;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private UserAccountModel userAccount;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<WorkingHoursModel> workingHoursList;
 
     public ServiceModel() {
@@ -46,6 +46,16 @@ public class ServiceModel {
         this.servicePhone = servicePhone;
         this.serviceDescription = serviceDescription;
         this.userAccount = userAccountModel;
+    }
+
+    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String location, List<WorkingHoursModel> workingHoursList) {
+        this.serviceName = serviceName;
+        this.serviceEmail = serviceEmail;
+        this.servicePhone = servicePhone;
+        this.serviceDescription = serviceDescription;
+        this.category = category;
+        this.location = location;
+        this.workingHoursList = workingHoursList;
     }
 
     public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String location, UserAccountModel userAccount, List<WorkingHoursModel> workingHoursList) {

@@ -40,10 +40,11 @@ public class UserAccountModel {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "userAccount",orphanRemoval = true)
+    @OneToOne(mappedBy = "userAccount",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private UserDetailsModel userDetails;
-
-
 
     public UserAccountModel() {
     }

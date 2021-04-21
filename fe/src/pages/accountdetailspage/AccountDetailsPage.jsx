@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -6,11 +6,14 @@ import "./AccountDetailsPage.css";
 import RocketImage from "../../_assets/_img/7750-[Converted].png";
 import AuthService from "../../services/auth/auth.service";
 import SubscriptionService from "../../services/subscription/subscription.service";
+import BusinessService from "../../services/business/business.service";
+import AccountDetailsService from "../../services/account-details/accountdetails.service";
 import cogoToast from "cogo-toast";
+import Card from "react-bootstrap/Card";
+import { useHistory } from "react-router";
 
 function AccountDetailsPage() {
   const currentUser = AuthService.getLoggedUser();
-
   const workingDays = [
     "Monday",
     "Thursday",
@@ -32,12 +35,16 @@ function AccountDetailsPage() {
   const [serviceNumber, setServiceNumber] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
   const [subscriptions, setSubscriptions] = useState([]);
-
+  const history = useHistory();
   let workingSchedule = [];
 
-  SubscriptionService.getSubscriptions().then((res) => {
-    setSubscriptions(res.data);
-  });
+  useEffect(() => {
+    SubscriptionService.getSubscriptions().then((res) => {
+      const subs = res.data;
+      subs.splice(0, 1);
+      setSubscriptions(subs);
+    });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,7 +60,7 @@ function AccountDetailsPage() {
 
         let startingHour =
           element.childNodes[1].childNodes[0].childNodes[0].value;
-        if (startingHour == "") {
+        if (startingHour === "") {
           cogoToast.error(
             "Please fill in the starting hour for the selected days"
           );
@@ -62,7 +69,7 @@ function AccountDetailsPage() {
 
         let endingHour =
           element.childNodes[2].childNodes[0].childNodes[0].value;
-        if (endingHour == "") {
+        if (endingHour === "") {
           cogoToast.error(
             "Please fill in the ending hour for the selected days"
           );
@@ -71,7 +78,7 @@ function AccountDetailsPage() {
         if (isValid) {
           checkedDaysSchedule.dayOfWeek = dayOfWeek;
           checkedDaysSchedule.startingHour = startingHour;
-          checkedDaysSchedule.endingHour = endingHour;
+          checkedDaysSchedule.closeHour = endingHour;
           workingSchedule.push(checkedDaysSchedule);
         }
       }
@@ -80,22 +87,41 @@ function AccountDetailsPage() {
     let validInputs = true;
     //TODO: validate inputs
     if (validInputs) {
-      let location = serviceCity + ", " + serviceStreet + " " + serviceNumber;
-      let category = document.querySelector(".serviceCategory").value;
+      let serviceLocation =
+        serviceCity + ", " + serviceStreet + " " + serviceNumber;
+      let serviceCategory = document.querySelector(".serviceCategory").value;
+      let subscriptionType = document.querySelector(".subscriptionType").value;
 
-      const reqBody = {
-        firstName: firstName,
-        lastName: lastName,
-        birthday: birthday,
-        serviceName: serviceName,
-        serviceEmail: serviceEmail,
-        servicePhone: servicePhone,
-        serviceLocation: location,
-        serviceDescription: serviceDescription,
-        serviceCategory: category,
-        workingHours: workingSchedule,
-      };
-      console.log(reqBody);
+      AccountDetailsService.saveUserDetails(
+        {
+          firstName: firstName,
+          lastName: lastName,
+          birthday: birthday,
+        },
+        currentUser.token,
+        currentUser.id,
+        subscriptionType
+      )
+        .then(() => {
+          BusinessService.saveBusiness(
+            {
+              serviceName: serviceName,
+              serviceEmail: serviceEmail,
+              servicePhone: servicePhone,
+              serviceDescription: serviceDescription,
+              category: serviceCategory.toUpperCase(),
+              location: serviceLocation,
+              workingHoursList: workingSchedule,
+            },
+            currentUser.token,
+            currentUser.id
+          )
+            .then(() => {
+              history.push("/home");
+            })
+            .catch((err) => console.log(err.message));
+        })
+        .catch((err) => console.log(err.message));
     }
   };
 
@@ -303,8 +329,39 @@ function AccountDetailsPage() {
                 <Form.File.Input />
               </Form.File>
             </div>
-            <h5>Subscription</h5>
-            {/* TODO: get from db subscriptions */}
+            <h3 className="details-form-headThree">Subscription</h3>
+            <p className="working-hours-description">
+              The payment will be processed by a third party after submitting
+              the form.
+            </p>
+            <Form.Control
+              as="select"
+              controlid="subscriptionType"
+              className="subscriptionType"
+            >
+              <option value="2">Monthly</option>
+              <option value="3">Annual</option>
+            </Form.Control>
+
+            <div className="subscription-container">
+              {subscriptions.map((elem) => {
+                return (
+                  <div
+                    key={elem.type}
+                    className={`card-container card-${elem.type}-container`}
+                  >
+                    <Card id={`card-${elem.type}`}>
+                      <Card.Body>
+                        <Card.Title>{elem.type} payments</Card.Title>
+                        <Card.Subtitle>
+                          {elem.subscriptionPrice} RON
+                        </Card.Subtitle>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                );
+              })}
+            </div>
             <Button
               variant="primary"
               type="submit"

@@ -25,7 +25,7 @@ public class UserDetailsModel {
     @Column(name = "birthday")
     private String birthday;
 
-    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "useraccount_id",referencedColumnName = "id")
     @JsonIgnore
     private UserAccountModel userAccount;

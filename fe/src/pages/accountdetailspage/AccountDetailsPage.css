@@ -64,7 +64,7 @@
 
 .details-form-headThree {
   margin-bottom: 10%;
-  color: #115278;
+  color: rgb(17, 82, 120);
   margin-top: 10%;
   font-weight: bold;
 }
@@ -76,4 +76,40 @@
 .working-hours-description {
   color: #6c757d;
   font-size: 13px;
+}
+
+.subscription-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+.subscription-container .card-container {
+  width: 45%;
+}
+.subscription-container .card {
+  margin-bottom: 10%;
+  padding: 0%;
+  color: #fff;
+  background-color: #242526;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 5px 5px 5px #666;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscription-container .card:hover {
+  transform: scale(1.1);
+}
+
+.subscription-container .card-body {
+  padding: 10%;
+}
+
+.subscription-container .card-subtitle {
+  margin-bottom: 20%;
+  color: rgb(9, 134, 9);
 }
