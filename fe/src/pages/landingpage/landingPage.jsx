@@ -14,8 +14,11 @@ import FormControl from "react-bootstrap/FormControl";
 import React from "react";
 import $ from "jquery";
 import "./LandingPage.css";
+import { useHistory } from "react-router";
 
 function LandingPage() {
+  const history = useHistory();
+
   $(function () {
     $(document).scroll(function () {
       var $nav = $(".landing-nav");
@@ -101,7 +104,13 @@ function LandingPage() {
               you own a business chose to define it easily with HubExp.
             </p>
             <div className="header-btn-options">
-              <Button className="btn btn-explore" variant="primary">
+              <Button
+                className="btn btn-explore"
+                variant="primary"
+                onClick={() => {
+                  history.push("/home");
+                }}
+              >
                 Explore now
               </Button>
               <Button className="btn btn-integrate" variant="outline-primary">
