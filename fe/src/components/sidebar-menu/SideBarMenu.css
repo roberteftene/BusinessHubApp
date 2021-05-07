@@ -1,6 +1,6 @@
 #header {
   position: absolute;
-  width: 220px;
+  width: 240px;
 }
 #header .pro-sidebar {
   height: 100vh;
@@ -22,8 +22,8 @@
   min-width: 100%;
 }
 #header .pro-sidebar.collapsed {
-  width: 80px;
-  min-width: 80px;
+  width: 90px;
+  min-width: 90px;
 }
 #header .pro-sidebar-inner {
   background-color: white;

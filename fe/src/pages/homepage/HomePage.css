@@ -1,3 +1,39 @@
+/* RESOURCES 
+background-white: #11527836
+background-dark: #115278
+*/
+
 .homePage-container {
-  margin-left: 20%;
+  margin-left: 22%;
+  padding-top: 3%;
+}
+
+.container-homepage-big {
+  background-color: #11527836;
+  height: 100vh;
+}
+
+.homepage-search-title {
+  font-size: 32px;
+  color: #115278;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.homepage-search-description {
+  color: #242526;
+}
+.header-banner {
+  height: 300px;
+}
+
+.homepage-btn-explore {
+  width: 10%;
+  margin: 5px;
+}
+
+.homepage-btn-explore svg {
+  margin-right: 10px;
 }
