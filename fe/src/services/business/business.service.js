@@ -14,6 +14,10 @@ class BusinessService {
       }
     );
   }
+
+  getAllBusinesses() {
+    return axios.get(`${API_URL}services`);
+  }
 }
 
 export default new BusinessService();
