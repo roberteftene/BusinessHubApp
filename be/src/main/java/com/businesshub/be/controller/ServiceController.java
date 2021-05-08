@@ -34,7 +34,7 @@ public class ServiceController {
 
     @GetMapping
     public List<ServiceModel> getAllServices() {
-        return  businessService.getAllServcies();
+        return  businessService.getAllServices();
     }
 
 }
