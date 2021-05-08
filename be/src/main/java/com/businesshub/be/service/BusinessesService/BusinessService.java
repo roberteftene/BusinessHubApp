@@ -48,6 +48,10 @@ public class BusinessService  {
         return allServices.stream().filter(service -> service.getUserAccount().getId() == userId).collect(Collectors.toList());
     }
 
+    public List<ServiceModel> getAllServcies() {
+        return serviceRepository.findAll();
+    }
+
 
 
 }

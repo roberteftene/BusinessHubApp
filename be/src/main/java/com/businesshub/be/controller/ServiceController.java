@@ -32,4 +32,9 @@ public class ServiceController {
         return  businessService.getAllServicesByUserId(id);
     }
 
+    @GetMapping
+    public List<ServiceModel> getAllServices() {
+        return  businessService.getAllServcies();
+    }
+
 }
