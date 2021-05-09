@@ -2,12 +2,14 @@ import "./HomePage.css";
 import { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import abstractBanner from "../../_assets/_img/aaron-burden-qJrg0ANseFE-unsplash.jpg";
 import Form from "react-bootstrap/Form";
-import { Col, Row } from "react-bootstrap";
 import { FaRocket } from "react-icons/fa";
 import SearchedServiceCard from "../../components/searched-service-card/SearchedServiceCard";
 import BusinessService from "../../services/business/business.service";
+import { Container } from "react-bootstrap";
 
 export default class Home extends Component {
   constructor(props) {
@@ -37,6 +39,7 @@ export default class Home extends Component {
     let categorySelected = document.querySelector(".categorySelect").value;
     console.log(citySelected + categorySelected);
     var searchedData = [];
+    //TODO: filter by number of stars too || filter by name
     this.state.businesses.forEach((business) => {
       if (
         business.category.toLowerCase() === categorySelected.toLowerCase() &&
@@ -48,11 +51,31 @@ export default class Home extends Component {
     this.setState({ searchedServices: searchedData });
   };
 
+  businessesArrayToGridArray(totalCols) {
+    let gridArray = [[]];
+    let countColumns = 1;
+    for (var i = 0; i < this.state.searchedServices.length; i++) {
+      gridArray[gridArray.length - 1].push(this.state.searchedServices[i]);
+      if (countColumns <= totalCols) {
+        countColumns++;
+      }
+      if (
+        countColumns > totalCols &&
+        i !== this.state.searchedServices.length - 1
+      ) {
+        countColumns = 1;
+        gridArray.push([]);
+      }
+    }
+    return gridArray;
+  }
+
   render() {
+    let gridArray = this.businessesArrayToGridArray(3);
     return (
       <div className="container-homepage-big">
         <div className="homePage-container">
-          <Card className="homepage-search-card" style={{ width: "80rem" }}>
+          <Card className="homepage-search-card" style={{ width: "85%" }}>
             <Card.Img
               variant="top"
               className="header-banner"
@@ -104,8 +127,20 @@ export default class Home extends Component {
           </Card>
 
           <div className="searched-container">
-            {this.state.searchedServices.map((el) => {
-              return <SearchedServiceCard service={el}></SearchedServiceCard>;
+            {gridArray.map((row) => {
+              return (
+                <Row>
+                  {row.map((col) => {
+                    return (
+                      <Col>
+                        <SearchedServiceCard
+                          service={col}
+                        ></SearchedServiceCard>
+                      </Col>
+                    );
+                  })}
+                </Row>
+              );
             })}
           </div>
         </div>

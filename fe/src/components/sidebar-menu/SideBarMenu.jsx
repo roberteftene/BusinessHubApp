@@ -44,10 +44,10 @@ const SideBarMenu = () => {
                 Home
               </MenuItem>
               <MenuItem
-                className={locationHref === "topthisweek" ? "active" : ""}
+                className={locationHref === "communityTop" ? "active" : ""}
                 icon={<FaRegHeart />}
               >
-                Top this week
+                Community Top
               </MenuItem>
               <MenuItem icon={<BsPerson />}>Profile</MenuItem>
               <MenuItem icon={<BsMoon />}>Dark mode</MenuItem>

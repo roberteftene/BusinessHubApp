@@ -30,7 +30,7 @@ background-dark: #115278
   color: #242526;
 }
 .header-banner {
-  height: 350px;
+  height: 315px;
 }
 
 .homepage-btn-explore {
@@ -40,4 +40,9 @@ background-dark: #115278
 
 .homepage-btn-explore svg {
   margin-right: 10px;
+}
+
+.searched-container {
+  width: 90%;
+  margin-left: 2.5%;
 }
