@@ -108,8 +108,7 @@ function AccountDetailsPage() {
       let validInputs = true;
       //TODO: validate inputs
       if (validInputs) {
-        let serviceLocation =
-          serviceCity + ", " + serviceStreet + " " + serviceNumber;
+        let serviceAddress = serviceStreet + " " + serviceNumber;
         let serviceCategory = document.querySelector(".serviceCategory").value;
         let subscriptionType = document.querySelector(".subscriptionType")
           .value;
@@ -132,7 +131,9 @@ function AccountDetailsPage() {
                 servicePhone: servicePhone,
                 serviceDescription: serviceDescription,
                 category: serviceCategory.toUpperCase(),
-                location: serviceLocation,
+                address: serviceAddress,
+                city: serviceCity,
+                rating: 0.0,
                 workingHoursList: workingSchedule,
               },
               currentUser.token,

@@ -26,8 +26,12 @@ public class ServiceModel {
     private String serviceDescription;
     @Column(name = "category")
     private EServiceCategory category;
-    @Column(name = "location")
-    private String location;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "rating")
+    private float rating;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -40,32 +44,29 @@ public class ServiceModel {
     public ServiceModel() {
     }
 
-    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription,UserAccountModel userAccountModel) {
-        this.serviceName = serviceName;
-        this.serviceEmail = serviceEmail;
-        this.servicePhone = servicePhone;
-        this.serviceDescription = serviceDescription;
-        this.userAccount = userAccountModel;
-    }
-
-    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String location, List<WorkingHoursModel> workingHoursList) {
+    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String address, String city, float rating, UserAccountModel userAccount) {
         this.serviceName = serviceName;
         this.serviceEmail = serviceEmail;
         this.servicePhone = servicePhone;
         this.serviceDescription = serviceDescription;
         this.category = category;
-        this.location = location;
-        this.workingHoursList = workingHoursList;
-    }
-
-    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String location, UserAccountModel userAccount, List<WorkingHoursModel> workingHoursList) {
-        this.serviceName = serviceName;
-        this.serviceEmail = serviceEmail;
-        this.servicePhone = servicePhone;
-        this.serviceDescription = serviceDescription;
-        this.category = category;
-        this.location = location;
+        this.address = address;
+        this.city = city;
+        this.rating = rating;
         this.userAccount = userAccount;
+    }
+
+    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String address, String city, float rating, List<WorkingHoursModel> workingHoursList) {
+        this.serviceName = serviceName;
+        this.serviceEmail = serviceEmail;
+        this.servicePhone = servicePhone;
+        this.serviceDescription = serviceDescription;
+        this.category = category;
+        this.address = address;
+        this.city = city;
+        this.rating = rating;
         this.workingHoursList = workingHoursList;
     }
+
+
 }

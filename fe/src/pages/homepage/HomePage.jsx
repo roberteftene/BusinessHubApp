@@ -26,7 +26,7 @@ export default class Home extends Component {
       this.setState({ businesses: result });
       var uniqueCities = new Set();
       res.data.forEach((el) => {
-        uniqueCities.add(el.location);
+        uniqueCities.add(el.city);
       });
       this.setState({ cities: uniqueCities });
     });
@@ -40,7 +40,7 @@ export default class Home extends Component {
     this.state.businesses.forEach((business) => {
       if (
         business.category.toLowerCase() === categorySelected.toLowerCase() &&
-        business.location.includes(citySelected)
+        business.city.includes(citySelected)
       ) {
         searchedData.push(business);
       }
