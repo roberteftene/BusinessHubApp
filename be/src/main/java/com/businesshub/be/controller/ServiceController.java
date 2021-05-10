@@ -2,6 +2,7 @@ package com.businesshub.be.controller;
 
 import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.ServiceModel;
+import com.businesshub.be.payload.request.CommunityImportanceTop;
 import com.businesshub.be.service.BusinessesService.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,11 @@ public class ServiceController {
     @GetMapping
     public List<ServiceModel> getAllServices() {
         return  businessService.getAllServices();
+    }
+
+    @PostMapping("/communityTop")
+    public List<ServiceModel> getCommunityTop(@RequestBody CommunityImportanceTop communityImportanceTop) {
+        return businessService.computeCommunityTop(communityImportanceTop.getNoReviewsImportanceIndex(),communityImportanceTop.getRatingImportanceIndex());
     }
 
 }

@@ -21,6 +21,9 @@ public class ReviewService {
             throw new UnsupportedOperationException("Service not found");
         }
         serviceModel.getReviewModelList().add(reviewModel);
+        float oldRating = serviceModel.getRating();
+        float newRating = (oldRating + reviewModel.getReviewRating()) / serviceModel.getReviewModelList().size();
+        serviceModel.setRating(newRating);
         reviewModel.setServiceModel(serviceModel);
         reviewRepository.save(reviewModel);
         return reviewModel;

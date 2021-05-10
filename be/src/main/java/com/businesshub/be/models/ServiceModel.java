@@ -34,6 +34,9 @@ public class ServiceModel {
     @Column(name = "rating")
     private float rating;
 
+    @Transient
+    private double popularityIndex;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
