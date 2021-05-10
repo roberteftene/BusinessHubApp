@@ -3,6 +3,7 @@ package com.businesshub.be.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -39,7 +40,12 @@ public class ServiceModel {
     private UserAccountModel userAccount;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<WorkingHoursModel> workingHoursList;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<ReviewModel> reviewModelList;
 
     public ServiceModel() {
     }
@@ -56,7 +62,7 @@ public class ServiceModel {
         this.userAccount = userAccount;
     }
 
-    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String address, String city, float rating, List<WorkingHoursModel> workingHoursList) {
+    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String address, String city, float rating, List<WorkingHoursModel> workingHoursList, List<ReviewModel> reviewModelList) {
         this.serviceName = serviceName;
         this.serviceEmail = serviceEmail;
         this.servicePhone = servicePhone;
@@ -66,6 +72,7 @@ public class ServiceModel {
         this.city = city;
         this.rating = rating;
         this.workingHoursList = workingHoursList;
+        this.reviewModelList = reviewModelList;
     }
 
 

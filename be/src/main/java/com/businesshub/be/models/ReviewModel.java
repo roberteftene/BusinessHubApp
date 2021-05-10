@@ -1,6 +1,8 @@
 package com.businesshub.be.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -23,19 +25,22 @@ public class ReviewModel {
     private int reviewRating;
     @Column(name = "post_date")
     private String reviewDate;
-    private Integer userId;
-    private Integer serviceId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "serviceId")
+    @JsonIgnore
+    @ToString.Exclude
+    private ServiceModel serviceModel;
 
     public ReviewModel() {
     }
 
-    public ReviewModel(String reviewTitle, int noLikes, String reviewDescription, int reviewRating, String reviewDate, int userId, int serviceId) {
+    public ReviewModel(String reviewTitle, int noLikes, String reviewDescription, int reviewRating, String reviewDate) {
         this.reviewTitle = reviewTitle;
         this.noLikes = noLikes;
         this.reviewDescription = reviewDescription;
         this.reviewRating = reviewRating;
         this.reviewDate = reviewDate;
-        this.userId = userId;
-        this.serviceId = serviceId;
     }
+
 }
