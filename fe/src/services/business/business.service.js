@@ -18,6 +18,10 @@ class BusinessService {
   getAllBusinesses() {
     return axios.get(`${API_URL}services`);
   }
+
+  getComputedCommunityTop(reqBody) {
+    return axios.post(`${API_URL}services/communityTop`, reqBody);
+  }
 }
 
 export default new BusinessService();

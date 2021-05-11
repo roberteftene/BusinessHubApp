@@ -18,6 +18,7 @@ import { BiCog } from "react-icons/bi";
 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./SideBarMenu.css";
+import { useHistory } from "react-router";
 
 const SideBarMenu = () => {
   const [locationHref, setLocationHref] = useState("");
@@ -25,6 +26,8 @@ const SideBarMenu = () => {
   useEffect(() => {
     setLocationHref(window.location.href.slice(22));
   }, []);
+
+  const history = useHistory();
 
   return (
     <>
@@ -41,13 +44,16 @@ const SideBarMenu = () => {
                 className={locationHref === "home" ? "active" : ""}
                 icon={<FiHome />}
               >
-                Home
+                <a href="/home">Home</a>
               </MenuItem>
               <MenuItem
-                className={locationHref === "communityTop" ? "active" : ""}
+                className={locationHref === "community" ? "active" : ""}
                 icon={<FaRegHeart />}
+                onClick={() => {
+                  history.push("/community");
+                }}
               >
-                Community Top
+                <a href="/community">Community Top</a>
               </MenuItem>
               <MenuItem icon={<BsPerson />}>Profile</MenuItem>
               <MenuItem icon={<BsMoon />}>Dark mode</MenuItem>

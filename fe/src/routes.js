@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SideBarMenu from "./components/sidebar-menu/SideBarMenu";
 import AccountDetailsPage from "./pages/accountdetailspage/AccountDetailsPage";
+import CommunityPage from "./pages/communitytoppage/CommunityPage";
 import Home from "./pages/homepage/HomePage.jsx";
 import LandingPage from "./pages/landingpage/landingPage";
 import LoginPage from "./pages/loginpage/LoginPage";
@@ -21,6 +22,7 @@ export default function Routes() {
         <>
           <SideBarMenu />
           <Route path="/home" component={Home}></Route>
+          <Route path="/community" exact component={CommunityPage}></Route>
         </>
       </Switch>
     </Router>

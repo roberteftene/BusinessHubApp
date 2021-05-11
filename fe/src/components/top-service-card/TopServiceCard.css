@@ -1,0 +1,89 @@
+.top-service-card-banner {
+  background-color: #fff;
+  width: 10%;
+  border: none;
+}
+
+.community-top-card {
+  display: flex;
+  flex-direction: row;
+  margin: 0% !important;
+  background: #fff !important;
+}
+.community-top-row {
+  width: 65%;
+}
+
+.community-card-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+  color: black;
+  padding: 2%;
+}
+
+.community-card-body .card-subtitle {
+  margin-top: 0px;
+}
+
+.community-top-card .community-card-body .community-card-view-more-btn {
+  padding: 0;
+}
+.community-top-card .community-card-body .community-card-view-more-btn:hover {
+  background-color: #fff;
+  color: black;
+}
+
+.community-top-card .community-card-body .card-title,
+.community-top-card .community-card-body p {
+  margin-bottom: 0%;
+}
+.community-top-card .community-card-body .mb-2 .my-2 {
+  margin-bottom: 0% !important;
+}
+
+.community-service-index {
+  font-weight: 600;
+  font-size: 18px;
+  /* margin-right: 45px; */
+}
+
+.category-badge {
+  /* margin-right: 55px; */
+}
+
+.community-top-card .community-card-body .community-service-title {
+  font-weight: 400 !important;
+  letter-spacing: 1px;
+}
+
+.community-top-card .community-card-body .card-link {
+  background-color: transparent;
+}
+
+.community-service-rating {
+  margin-left: 45px;
+}
+.star-icon {
+  margin-left: 10px;
+  margin-bottom: 5px;
+  color: #115278;
+}
+
+.view-more-icon {
+  margin-left: 10px;
+}
+
+.community-top-card .community-card-body .community-card-title-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+}
+
+.small-section-title {
+  margin-right: 25px;
+}

@@ -1,0 +1,26 @@
+.community-page-container {
+  background-color: #11527836;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.community-top-row {
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.community-heading {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 700;
+  background-color: #115278;
+  box-shadow: 0 0.9125rem 0.9125rem 0 rgb(36 37 38 / 30%);
+  padding: 3.5%;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 0%;
+}
