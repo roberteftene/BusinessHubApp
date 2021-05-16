@@ -5,6 +5,7 @@ import CommunityPage from "./pages/communitytoppage/CommunityPage";
 import Home from "./pages/homepage/HomePage.jsx";
 import LandingPage from "./pages/landingpage/landingPage";
 import LoginPage from "./pages/loginpage/LoginPage";
+import ProfilePage from "./pages/profilepage/ProfilePage";
 import RegisterPage from "./pages/registerpage/registerPage";
 
 export default function Routes() {
@@ -23,6 +24,7 @@ export default function Routes() {
           <SideBarMenu />
           <Route path="/home" component={Home}></Route>
           <Route path="/community" exact component={CommunityPage}></Route>
+          <Route path="/profile" component={ProfilePage} />
         </>
       </Switch>
     </Router>

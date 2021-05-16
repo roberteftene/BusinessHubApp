@@ -14,6 +14,12 @@ class AccountDetailsService {
       }
     );
   }
+
+  getUserDetailsByAccountId(token, currentUserId) {
+    return axios.get(`${API_URL}/account-details/${currentUserId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 export default new AccountDetailsService();

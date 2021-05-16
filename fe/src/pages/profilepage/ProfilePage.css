@@ -1,0 +1,29 @@
+.profile-page-container {
+  background-color: #11527836;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-page-container .top-nav {
+  z-index: 1;
+  background-color: #fff;
+  box-shadow: 0 0.3125rem 0.9375rem 0 rgb(17 82 120 / 50%);
+}
+
+.profile-page-container .top-nav .navbar-nav .nav-link {
+  color: #242526;
+}
+
+.profile-top-row {
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-page-container .top-nav .navbar-nav .profile-active-option {
+  color: #115278;
+  font-weight: 700;
+  border-bottom: 2px solid grey;
+}

@@ -49,13 +49,30 @@ const SideBarMenu = () => {
               <MenuItem
                 className={locationHref === "community" ? "active" : ""}
                 icon={<FaRegHeart />}
-                onClick={() => {
-                  history.push("/community");
-                }}
               >
                 <a href="/community">Community Top</a>
               </MenuItem>
-              <MenuItem icon={<BsPerson />}>Profile</MenuItem>
+              <MenuItem
+                className={locationHref === "profile" ? "active" : ""}
+                icon={<BsPerson />}
+              >
+                <a href="/profile">Profile</a>
+              </MenuItem>
+              {/* {locationHref === "profile" && (
+                <>
+                  <div className="profile-second-section-menu">
+                    <MenuItem icon={<BsPerson />}>
+                      <a href="/profile">Reservation</a>
+                    </MenuItem>
+                    <MenuItem icon={<BsPerson />}>
+                      <a href="/profile">Reservation</a>
+                    </MenuItem>
+                    <MenuItem icon={<BsPerson />}>
+                      <a href="/profile">Reservation</a>
+                    </MenuItem>
+                  </div>
+                </>
+              )} */}
               <MenuItem icon={<BsMoon />}>Dark mode</MenuItem>
             </Menu>
           </SidebarContent>
