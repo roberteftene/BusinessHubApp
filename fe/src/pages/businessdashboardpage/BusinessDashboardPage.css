@@ -1,0 +1,6 @@
+.dashboard-page-container {
+  background-color: #11527836;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}

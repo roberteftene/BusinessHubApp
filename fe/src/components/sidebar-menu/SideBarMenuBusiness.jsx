@@ -9,7 +9,6 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 
-//import icons from react icons
 import { FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut } from "react-icons/fi";
 import { BsPerson, BsMoon } from "react-icons/bs";
@@ -20,22 +19,14 @@ import { MdPayment } from "react-icons/md";
 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./SideBarMenu.css";
-import { useHistory } from "react-router";
 import AuthService from "../../services/auth/auth.service";
 
-const SideBarMenu = () => {
-  const currLoggedUser = AuthService.getLoggedUser();
+const SideBarMenuBusiness = () => {
   const [locationHref, setLocationHref] = useState("");
-  const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     setLocationHref(window.location.pathname);
-    if (currLoggedUser.roles.includes("ROLE_BUSINESSOWNER")) {
-      setIsOwner(true);
-    }
   }, []);
-
-  const history = useHistory();
 
   return (
     <>
@@ -49,37 +40,31 @@ const SideBarMenu = () => {
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem
+                className={
+                  locationHref === "/business-dashboard" ? "active" : ""
+                }
+                icon={<AiOutlinePieChart />}
+              >
+                <a href="/business-dashboard">Dashboard</a>
+              </MenuItem>
+              <MenuItem
+                className={locationHref === "/home" ? "active" : ""}
+                icon={<AiOutlineProfile />}
+              >
+                <a href="/home">Business profile</a>
+              </MenuItem>
+              <MenuItem
+                className={locationHref === "/home" ? "active" : ""}
+                icon={<MdPayment />}
+              >
+                <a href="/home">Subscription</a>
+              </MenuItem>
+              <MenuItem
                 className={locationHref === "/home" ? "active" : ""}
                 icon={<FiHome />}
               >
                 <a href="/home">Home</a>
               </MenuItem>
-
-              <MenuItem
-                className={locationHref === "/community" ? "active" : ""}
-                icon={<FaRegHeart />}
-              >
-                <a href="/community">Community Top</a>
-              </MenuItem>
-              <MenuItem
-                className={locationHref === "/profile" ? "active" : ""}
-                icon={<BsPerson />}
-              >
-                <a href="/profile">Profile</a>
-              </MenuItem>
-              {isOwner === true && (
-                <>
-                  <MenuItem
-                    className={
-                      locationHref === "/business-dashboard" ? "active" : ""
-                    }
-                    icon={<MdBusinessCenter />}
-                  >
-                    <a href="/business-dashboard">My businesses</a>
-                  </MenuItem>
-                </>
-              )}
-
               <MenuItem icon={<BsMoon />}>Dark mode</MenuItem>
             </Menu>
           </SidebarContent>
@@ -94,4 +79,4 @@ const SideBarMenu = () => {
   );
 };
 
-export default SideBarMenu;
+export default SideBarMenuBusiness;

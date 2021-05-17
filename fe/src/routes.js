@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SideBarMenu from "./components/sidebar-menu/SideBarMenu";
+import SideBarMenuBusiness from "./components/sidebar-menu/SideBarMenuBusiness";
 import AccountDetailsPage from "./pages/accountdetailspage/AccountDetailsPage";
+import BusinessDashboardPage from "./pages/businessdashboardpage/BusinessDashboardPage.jsx";
 import CommunityPage from "./pages/communitytoppage/CommunityPage";
 import Home from "./pages/homepage/HomePage.jsx";
 import LandingPage from "./pages/landingpage/landingPage";
@@ -13,18 +15,21 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/" exact component={LandingPage}></Route>
-        <Route path="/signin" exact component={LoginPage}></Route>
-        <Route path="/signup" exact component={RegisterPage}></Route>
-        <Route
-          path="/accountdetails"
-          exact
-          component={AccountDetailsPage}
-        ></Route>
+        <Route path="/signin" component={LoginPage}></Route>
+        <Route path="/signup" component={RegisterPage}></Route>
+        <Route path="/accountdetails" component={AccountDetailsPage}></Route>
         <>
           <SideBarMenu />
-          <Route path="/home" component={Home}></Route>
-          <Route path="/community" exact component={CommunityPage}></Route>
+          <Route path="/home" exact component={Home}></Route>
+          <Route path="/community" component={CommunityPage}></Route>
           <Route path="/profile" component={ProfilePage} />
+          <>
+            <SideBarMenuBusiness />
+            <Route
+              path="/business-dashboard"
+              component={BusinessDashboardPage}
+            />
+          </>
         </>
       </Switch>
     </Router>

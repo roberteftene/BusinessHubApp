@@ -20,6 +20,19 @@
   display: flex;
   justify-content: center;
   text-align: center;
+  width: 80%;
+}
+
+.benefits-card {
+  box-shadow: 0 0.2125rem 0.2125rem 0 rgb(36 37 38 / 30%);
+}
+
+.benefits-card-subtitle {
+  margin-top: 2%;
+  padding-left: 10%;
+  padding-right: 10%;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .profile-page-container .top-nav .navbar-nav .profile-active-option {

@@ -4,6 +4,9 @@ import Navbar from "react-bootstrap/Navbar";
 import { Nav } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import UserDetailsCard from "../../components/user-details-card/UserDetailsCard";
+import UserPointsCard from "../../components/user-points-card/UserPointsCard";
+import BenefitsCard from "../../components/benefits-card/BenefitsCard";
+import Card from "react-bootstrap/Card";
 export default class ProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -46,29 +49,43 @@ export default class ProfilePage extends Component {
               >
                 Reviews
               </Nav.Link>
-              <Nav.Link
-                className="benefits-link-option"
-                onClick={(e) => this.handleOptionClick(e)}
-              >
-                Benefits
-              </Nav.Link>
+
               <Nav.Link
                 className="favorite-link-option"
                 onClick={(e) => this.handleOptionClick(e)}
               >
                 Favorite
               </Nav.Link>
-              <Nav.Link
-                className="history-link-option"
-                onClick={(e) => this.handleOptionClick(e)}
-              >
-                History
-              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         <Row className="profile-top-row">
-          <UserDetailsCard></UserDetailsCard>
+          <Col>
+            <UserPointsCard></UserPointsCard>
+          </Col>
+          <Col>
+            <Row>
+              <UserDetailsCard></UserDetailsCard>
+            </Row>
+            <Row>
+              <Card className="benefits-card user-details-card-container">
+                <Card.Title className="user-details-card-title">
+                  Your benefits
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted benefits-card-subtitle">
+                  Redeem the rewards before their expiration date, and next
+                  booking use the generated code to beneficiate from your
+                  reward.
+                </Card.Subtitle>
+                <Card.Body className="benefits-card-container-body">
+                  <BenefitsCard></BenefitsCard>
+                  <BenefitsCard></BenefitsCard>
+                  <BenefitsCard></BenefitsCard>
+                  <BenefitsCard></BenefitsCard>
+                </Card.Body>
+              </Card>
+            </Row>
+          </Col>
         </Row>
       </div>
     );

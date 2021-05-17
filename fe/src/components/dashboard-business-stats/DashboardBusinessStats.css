@@ -1,0 +1,16 @@
+.dashboard-business-stats-container {
+  display: flex;
+  width: 100%;
+}
+
+.dashboard-header-section-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 20%;
+}
+
+.dashboard-header-section {
+  width: 25%;
+}
