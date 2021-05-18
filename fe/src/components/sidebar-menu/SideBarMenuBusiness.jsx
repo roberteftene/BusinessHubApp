@@ -51,7 +51,7 @@ const SideBarMenuBusiness = () => {
                 className={locationHref === "/home" ? "active" : ""}
                 icon={<AiOutlineProfile />}
               >
-                <a href="/home">Business profile</a>
+                <a href="/business-profile">Business profile</a>
               </MenuItem>
               <MenuItem
                 className={locationHref === "/home" ? "active" : ""}

@@ -1,5 +1,6 @@
 .dashboard-business-stats-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -9,8 +10,117 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 20%;
+  margin-top: 2%;
 }
 
 .dashboard-header-section {
   width: 25%;
+}
+
+.dashboard-business-title {
+  font-size: 32px;
+  color: #242526;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.row {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+  margin-left: 17%;
+}
+
+.business-stats-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.business-stats-card-left,
+.business-stats-card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 12rem;
+  width: 35%;
+  padding: 1rem;
+}
+
+.business-stats-card-left {
+  justify-content: center;
+}
+
+.business-stats-card-left {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.business-stats-card-right {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.business-stats-card-right .business-stats-card-btn {
+  font-size: 14px;
+  padding: 3% 3% 3% 3%;
+}
+
+.reviews-stats .business-stats-card-left {
+  background-color: #235889af;
+}
+
+.reviews-stats .business-stats-card-right {
+  background-color: #235789;
+}
+
+.stars-stats .business-stats-card-left {
+  background-color: #3a92f7bb;
+}
+
+.stars-stats .business-stats-card-right {
+  background-color: #87bfff;
+}
+
+.clicks-stats .business-stats-card-left {
+  background-color: #2ca7749d;
+}
+
+.clicks-stats .business-stats-card-right {
+  background-color: #2ca774;
+}
+
+.bookings-stats .business-stats-card-left {
+  background-color: #eeb539b0;
+}
+
+.bookings-stats .business-stats-card-right {
+  background-color: #eeb639;
+}
+
+.business-stats-card-icon {
+  color: #fff;
+  font-size: 55px;
+}
+
+.business-stats-card-btn {
+  background-color: #fff;
+  color: #235789;
+  border: none;
+}
+.btn:not(:disabled):not(.disabled) {
+  border-radius: 5px;
+}
+
+.business-stats-card-title {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.business-stats-card-value {
+  font-size: 22px;
+  font-weight: 300;
+  color: #fff;
 }
