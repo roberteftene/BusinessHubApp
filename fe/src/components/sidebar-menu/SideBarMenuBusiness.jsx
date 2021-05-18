@@ -53,12 +53,7 @@ const SideBarMenuBusiness = () => {
               >
                 <a href="/business-profile">Business profile</a>
               </MenuItem>
-              <MenuItem
-                className={locationHref === "/home" ? "active" : ""}
-                icon={<MdPayment />}
-              >
-                <a href="/home">Subscription</a>
-              </MenuItem>
+
               <MenuItem
                 className={locationHref === "/home" ? "active" : ""}
                 icon={<FiHome />}
@@ -69,9 +64,9 @@ const SideBarMenuBusiness = () => {
             </Menu>
           </SidebarContent>
           <SidebarFooter>
-            <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-            </Menu>
+            <MenuItem icon={<FiLogOut />} onClick={() => AuthService.logout()}>
+              <a href="/">Logout</a>
+            </MenuItem>
           </SidebarFooter>
         </ProSidebar>
       </div>

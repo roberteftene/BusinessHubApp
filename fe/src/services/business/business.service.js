@@ -22,6 +22,12 @@ class BusinessService {
   getComputedCommunityTop(reqBody) {
     return axios.post(`${API_URL}services/communityTop`, reqBody);
   }
+
+  getBusinessesByUserId(currentUserId, token) {
+    return axios.get(`${API_URL}services/${currentUserId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 export default new BusinessService();

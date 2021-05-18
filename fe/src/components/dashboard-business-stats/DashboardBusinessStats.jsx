@@ -39,8 +39,8 @@ function DashboardBusinessStats() {
         </Col>
         <Col className="business-stats-card stars-stats">
           <div className="business-stats-card-left">
-            <span className="business-stats-card-title">Stars</span>
-            <span className="business-stats-card-value">410</span>
+            <span className="business-stats-card-title">Rating</span>
+            <span className="business-stats-card-value">5</span>
           </div>
           <div className="business-stats-card-right">
             <RiStarSFill className="business-stats-card-icon" />

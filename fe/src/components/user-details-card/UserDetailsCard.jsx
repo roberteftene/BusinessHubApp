@@ -94,6 +94,24 @@ function UserDetailsCard() {
               </Form.Group>
             </Col>
           </Row>
+          {currLoggedUser.roles.includes("ROLE_BUSINESSOWNER") === true && (
+            <>
+              <Row md={3}>
+                <Col>
+                  <Form.Group controlId="details-group-subscription">
+                    <Form.Label>Subscription Type</Form.Label>
+                    <Form.Control
+                      readOnly
+                      value={
+                        currUserDetails.subscriptionModel
+                          .subscriptionDescription
+                      }
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </>
+          )}
         </Card.Body>
         <Button className="edit-details-btn" variant="outline-primary">
           Edit details

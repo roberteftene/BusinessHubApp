@@ -10,13 +10,10 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut } from "react-icons/fi";
 import { BsPerson, BsMoon } from "react-icons/bs";
 import { MdBusinessCenter } from "react-icons/md";
-import { AiOutlinePieChart } from "react-icons/ai";
-import { AiOutlineProfile } from "react-icons/ai";
-import { MdPayment } from "react-icons/md";
 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./SideBarMenu.css";
@@ -85,7 +82,12 @@ const SideBarMenu = () => {
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+              <MenuItem
+                icon={<FiLogOut />}
+                onClick={() => AuthService.logout()}
+              >
+                <a href="/">Logout</a>
+              </MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>

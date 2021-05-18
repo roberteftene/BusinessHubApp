@@ -24,7 +24,7 @@
   font-weight: bold;
 }
 
-.row {
+.dashboard-business-stats-container .dashboard-business-stats-card {
   width: 80%;
   display: flex;
   justify-content: center;
