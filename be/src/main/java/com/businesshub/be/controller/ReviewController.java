@@ -13,10 +13,16 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
-    @PostMapping("/{id}")
+    @PostMapping("/{uId}/{serviceId}")
     @ResponseBody
-    public ReviewModel saveReview(@RequestBody ReviewModel reviewModel,@PathVariable(value = "id") int id) {
-        return reviewService.saveReview(id,reviewModel);
+    public ReviewModel saveReview(@PathVariable(value = "uId") Long id,@PathVariable(value = "serviceId") int serviceId, @RequestBody ReviewModel reviewModel) {
+        return reviewService.saveReview(id,serviceId,reviewModel);
+    }
+
+    @PostMapping("/{serviceId}")
+    @ResponseBody
+    public ReviewModel saveReviewByGuest(@PathVariable(value = "serviceId") int serviceId, @RequestBody ReviewModel reviewModel) {
+        return reviewService.saveReviewWithGuestRole(serviceId,reviewModel);
     }
 
 }
