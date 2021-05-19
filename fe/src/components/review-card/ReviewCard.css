@@ -1,0 +1,30 @@
+.review-card-container {
+  width: 100%;
+  margin-top: 2%;
+  box-shadow: 0 0.3125rem 0.3125rem 0 rgb(36 37 38 / 30%);
+}
+
+.review-card-subtitle {
+  display: flex;
+  align-items: center;
+}
+
+.review-date {
+  font-size: 12px;
+  margin-left: 15px;
+}
+
+.review-visit-date {
+  font-size: 12px;
+}
+
+.review-like-section {
+  display: flex;
+  align-items: center;
+}
+
+.likeReview-btn {
+  margin-left: 10px;
+  font-size: 18px;
+  color: #115278;
+}

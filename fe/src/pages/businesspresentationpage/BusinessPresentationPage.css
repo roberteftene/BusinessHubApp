@@ -147,9 +147,15 @@
 
 .review-section {
   margin-top: 5%;
-  min-height: 50rem;
+  min-height: 30rem;
+  margin-bottom: 2%;
 }
 
 .reviews-card-title {
   padding: 2%;
+}
+.review-section-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

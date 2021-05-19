@@ -12,6 +12,8 @@ import { BiMessageAdd } from "react-icons/bi";
 import Card from "react-bootstrap/Card";
 import { FaPhoneAlt } from "react-icons/fa";
 import MapContainer from "../../components/business-maps-location/MapContainer";
+import ReviewService from "../../services/review/review.service";
+import ReviewCard from "../../components/review-card/ReviewCard";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyCgPWdoEYShIDmxcPQJgsuWZLuhZylyQCA");
@@ -22,6 +24,7 @@ function BusinessPresentationPage() {
   const [workingHoursList, setWorkingHoursList] = useState([]);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [reviewArray, setReviewArray] = useState([]);
   const idObj = useParams();
 
   useEffect(() => {
@@ -41,7 +44,14 @@ function BusinessPresentationPage() {
       setLatitude(lat);
       setLongitude(lng);
     });
-  });
+  }, []);
+
+  useEffect(() => {
+    ReviewService.getReviewsByBusinessId(idObj.id).then((res) => {
+      const reviews = res.data;
+      setReviewArray(reviews);
+    });
+  }, []);
 
   return (
     <div className="business-presentation-container">
@@ -55,12 +65,14 @@ function BusinessPresentationPage() {
               <Col className="business-second-row-col">
                 <Rating
                   name="read-only"
-                  value={businessDetails.rating}
+                  value={businessDetails.rating || 0}
                   readOnly
                 />
               </Col>
               <Col className="business-second-row-col">
-                <span className="business-reviews">13 reviews</span>
+                <span className="business-reviews">
+                  {reviewArray.length} Reviews
+                </span>
               </Col>
             </Row>
             <Row className="business-shortcut-contact">
@@ -197,11 +209,15 @@ function BusinessPresentationPage() {
           </Col>
         </Row>
         <Row className="business-shortcuts-row review-section">
-          <Card style={{ width: "85%" }}>
+          <Card style={{ width: "65%" }}>
             <Card.Title className="business-presentation-card-title reviews-card-title ">
               Reviews
             </Card.Title>
-            <Card.Body></Card.Body>
+            <Card.Body className="review-section-body">
+              {reviewArray.map((review) => {
+                return <ReviewCard key={review.reviewId} reviewData={review} />;
+              })}
+            </Card.Body>
           </Card>
         </Row>
       </div>
