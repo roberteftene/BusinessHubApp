@@ -22,4 +22,10 @@ public class UserService {
         return ResponseEntity.ok("Deleted");
     }
 
+    public String getDecryptedPasswordByUserId(Long id) {
+        UserAccountModel userAccountModel = userRepository.findById(id).get();
+        String password = userAccountModel.getPassword();
+        return password;
+    }
+
 }

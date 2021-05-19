@@ -25,7 +25,9 @@ export default class SearchedServiceCard extends Component {
             </p>
           </Card.Subtitle>
           <Card.Text>{this.props.service.serviceDescription}</Card.Text>
-          <Card.Link href="#">View more</Card.Link>
+          <Card.Link href={`/business/${this.props.service.serviceId}`}>
+            View more
+          </Card.Link>
         </Card.Body>
       </Card>
     );

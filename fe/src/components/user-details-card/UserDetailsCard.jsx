@@ -12,6 +12,7 @@ function UserDetailsCard() {
   const currLoggedUser = AuthService.getLoggedUser();
   const [currUserDetails, setCurrUserDetails] = useState({});
   const [visiblePassword, setVisiblePassword] = useState(false);
+  const [subscriptionType, setSubscriptionType] = useState("");
 
   useEffect(() => {
     AccountDetailsService.getUserDetailsByAccountId(
@@ -19,8 +20,9 @@ function UserDetailsCard() {
       currLoggedUser.id
     )
       .then((res) => {
-        const currUserDetails = res.data;
-        setCurrUserDetails(currUserDetails);
+        const currUserDetailsData = res.data;
+        setCurrUserDetails(currUserDetailsData);
+        setSubscriptionType(currUserDetailsData.subscriptionModel.type);
         console.log(currUserDetails);
       })
       .catch((err) => {
@@ -100,13 +102,7 @@ function UserDetailsCard() {
                 <Col>
                   <Form.Group controlId="details-group-subscription">
                     <Form.Label>Subscription Type</Form.Label>
-                    <Form.Control
-                      readOnly
-                      value={
-                        currUserDetails.subscriptionModel
-                          .subscriptionDescription
-                      }
-                    />
+                    <Form.Control readOnly value={subscriptionType} />
                   </Form.Group>
                 </Col>
               </Row>

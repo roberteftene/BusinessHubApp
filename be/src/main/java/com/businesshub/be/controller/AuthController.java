@@ -11,6 +11,7 @@ import com.businesshub.be.repository.RoleRepository;
 import com.businesshub.be.repository.UserRepository;
 import com.businesshub.be.security.jwt.JwtUtils;
 import com.businesshub.be.security.services.UserDetailsImpl;
+import com.businesshub.be.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,6 +43,9 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -120,6 +124,5 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-
 
 }

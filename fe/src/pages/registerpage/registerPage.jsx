@@ -42,9 +42,9 @@ function RegisterPage() {
       AuthService.register(username, email, password, role)
         .then(() => {
           cogoToast.success("Successfully registered");
-          AuthService.login(username, password).then(() =>
-            history.push("/accountdetails")
-          );
+          AuthService.login(username, password)
+            .then(() => history.push("/accountdetails"))
+            .catch((err) => cogoToast.warn(err.message));
         })
         .catch((e) => cogoToast.warn(e.message));
     }

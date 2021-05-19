@@ -1,0 +1,155 @@
+.business-presentation-container {
+  background-color: #5ea6cf1c;
+  min-height: 100vh;
+  display: flex;
+  width: 100%;
+}
+
+.business-presentation {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20%;
+  margin-top: 2%;
+}
+
+.business-shortcuts-row {
+  width: 100%;
+}
+
+.business-shortcut-options {
+  display: flex;
+  width: 70%;
+}
+.business-shortcut-options-btn {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+}
+
+.business-shortcut-options-btn:hover {
+  border-bottom: 1px solid black;
+}
+
+.business-shortcut-options-btn:hover .shortcut-options-icon {
+  color: red;
+}
+
+.business-shortcut-options-btn {
+  margin-left: 1%;
+}
+
+.shortcut-options-icon {
+  margin-right: 10px;
+}
+
+.business-title-name {
+  color: #115278;
+  font-weight: 600;
+  font-family: "Trip Sans VF", "Trip Sans", Arial, sans-serif !important;
+  font-size: 42px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+
+.business-second-row-col {
+  max-width: 20%;
+  margin-bottom: 2%;
+}
+
+.business-reviews {
+  font-weight: bold;
+}
+
+.location-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.phone-icon {
+  margin-right: 10px;
+}
+.email-icon {
+  margin-right: 10px;
+  font-size: 24px;
+}
+.business-shortcut-contact {
+  display: flex;
+  flex-direction: row;
+}
+
+.shortcut-contact {
+  padding-left: 1%;
+  margin-top: 10px;
+}
+
+.shortcut-contact-phone {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.business-shortcut-contact span {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Trip Sans VF", "Trip Sans", Arial, sans-serif;
+  letter-spacing: 1px;
+}
+
+.business-shortcut-contact span:hover {
+  border-bottom: 0.5px solid black;
+  cursor: pointer;
+}
+
+.cards-section {
+  margin-top: 5%;
+}
+
+.business-presentation-card {
+  box-shadow: 0 0.3125rem 0.3125rem 0 rgb(36 37 38 / 30%);
+  min-height: 25rem;
+}
+
+.business-presentation-card-title {
+  font-size: 18px;
+  background-color: #115278;
+  color: #fff;
+  text-transform: capitalize;
+  letter-spacing: 2.5px;
+  padding: 4%;
+}
+.business-presentation-details-card-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 7% !important;
+}
+
+.workingHour-schedule-section {
+  padding-left: 5%;
+  font-size: 18px;
+}
+
+.workingHour-schedule-section span {
+  margin-left: 10px;
+}
+
+.business-presentation-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.map-contact {
+  margin-top: 40%;
+}
+
+.review-section {
+  margin-top: 5%;
+  min-height: 50rem;
+}
+
+.reviews-card-title {
+  padding: 2%;
+}

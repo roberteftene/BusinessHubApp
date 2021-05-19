@@ -13,7 +13,7 @@ import java.util.List;
 public class ServiceModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
     private Integer serviceId;
 

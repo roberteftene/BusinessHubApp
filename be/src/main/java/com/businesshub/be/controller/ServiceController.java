@@ -43,4 +43,9 @@ public class ServiceController {
         return businessService.computeCommunityTop(communityImportanceTop.getNoReviewsImportanceIndex(),communityImportanceTop.getRatingImportanceIndex());
     }
 
+    @GetMapping("/presentation/{id}")
+    public ServiceModel getServiceById(@PathVariable(value = "id") Integer id) {
+        return businessService.getServiceById(id);
+    }
+
 }

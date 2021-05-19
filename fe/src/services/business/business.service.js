@@ -28,6 +28,10 @@ class BusinessService {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+
+  getBusinessById(serviceId) {
+    return axios.get(`${API_URL}services/presentation/${serviceId}`);
+  }
 }
 
 export default new BusinessService();

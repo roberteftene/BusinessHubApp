@@ -78,11 +78,16 @@ public class BusinessService {
                 .sorted(Comparator.comparingDouble(ServiceModel::getPopularityIndex).reversed())
                 .collect(Collectors.toList());
 
-        if(communityTop.size() > 3) {
-            return communityTop.subList(0,3);
+        if (communityTop.size() > 3) {
+            return communityTop.subList(0, 3);
         } else {
             return communityTop;
         }
+    }
+
+    public ServiceModel getServiceById(Integer id) {
+        ServiceModel serviceModel = serviceRepository.findById(id).get();
+        return serviceModel;
     }
 
 

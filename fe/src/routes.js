@@ -3,6 +3,7 @@ import SideBarMenu from "./components/sidebar-menu/SideBarMenu";
 import SideBarMenuBusiness from "./components/sidebar-menu/SideBarMenuBusiness";
 import AccountDetailsPage from "./pages/accountdetailspage/AccountDetailsPage";
 import BusinessDashboardPage from "./pages/businessdashboardpage/BusinessDashboardPage.jsx";
+import BusinessPresentationPage from "./pages/businesspresentationpage/BusinessPresentationPage";
 import BusinessProfilePage from "./pages/businessprofilepage/BusinessProfilePage";
 import CommunityPage from "./pages/communitytoppage/CommunityPage";
 import Home from "./pages/homepage/HomePage.jsx";
@@ -24,6 +25,7 @@ export default function Routes() {
           <Route path="/home" exact component={Home}></Route>
           <Route path="/community" component={CommunityPage}></Route>
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/business/:id" component={BusinessPresentationPage} />
           <>
             <SideBarMenuBusiness />
             <Route
