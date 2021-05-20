@@ -14,11 +14,11 @@ export class MapContainer extends Component {
       <div className="map-container">
         <Map
           google={this.props.google}
-          zoom={14}
+          zoom={16}
           style={mapStyles}
           initialCenter={{
-            lat: this.props.latitude,
-            lng: this.props.longitude,
+            lat: this.props.coord.lat,
+            lng: this.props.coord.lng,
           }}
         >
           <Marker

@@ -6,13 +6,16 @@ import { HiCursorClick } from "react-icons/hi";
 import { RiStarSFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import { FaConciergeBell } from "react-icons/fa";
+import VerticalBar from "../vertical-bar-reviewsRating/VerticalBar";
 
-function DashboardBusinessStats() {
+function DashboardBusinessStats(props) {
   return (
     <div className="dashboard-business-stats-container">
       <div className="dashboard-header-section-container">
         <div className="dashboard-header-section">
-          <h1 className="dashboard-business-title">Football Arena Cafe</h1>
+          <h1 className="dashboard-business-title">
+            {props.businessData.serviceName}
+          </h1>
           <Form.Label>
             Select period for generating statistic graphics
           </Form.Label>
@@ -28,7 +31,9 @@ function DashboardBusinessStats() {
         <Col className="business-stats-card reviews-stats">
           <div className="business-stats-card-left">
             <span className="business-stats-card-title">Reviews</span>
-            <span className="business-stats-card-value">1.310</span>
+            <span className="business-stats-card-value">
+              {props.businessData.reviewModelList.length}
+            </span>
           </div>
           <div className="business-stats-card-right">
             <IoIosHappy className="business-stats-card-icon" />
@@ -40,7 +45,10 @@ function DashboardBusinessStats() {
         <Col className="business-stats-card stars-stats">
           <div className="business-stats-card-left">
             <span className="business-stats-card-title">Rating</span>
-            <span className="business-stats-card-value">5</span>
+            <span className="business-stats-card-value">
+              {Math.round((props.businessData.rating + Number.EPSILON) * 100) /
+                100}
+            </span>
           </div>
           <div className="business-stats-card-right">
             <RiStarSFill className="business-stats-card-icon" />
@@ -73,6 +81,11 @@ function DashboardBusinessStats() {
             </Button>
           </div>
         </Col>
+      </Row>
+      <Row className="dashboard-business-stats-graphic ">
+        <div className="graphic-container">
+          <VerticalBar />
+        </div>
       </Row>
     </div>
   );

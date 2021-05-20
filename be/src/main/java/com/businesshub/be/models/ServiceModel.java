@@ -78,5 +78,13 @@ public class ServiceModel {
         this.reviewModelList = reviewModelList;
     }
 
+    public float computeRating() {
+        int sumOfRatings = 0;
+        for (ReviewModel reviewModel : this.reviewModelList) {
+            sumOfRatings += reviewModel.getReviewRating();
+        }
+        return (float)sumOfRatings / this.reviewModelList.size();
+    }
+
 
 }

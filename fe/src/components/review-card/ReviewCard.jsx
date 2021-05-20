@@ -15,14 +15,14 @@ export default class ReviewCard extends Component {
     };
     this.formattedDate = this.jsDate.toLocaleDateString("en-US", options);
 
-    this.dateArray = props.reviewData.visitDate.split("-");
-    this.jsVisitDate = new Date(
-      `${this.dateArray[2]}-${this.dateArray[1]}-${this.dateArray[0]}`
-    );
-    this.formattedVisitDate = this.jsVisitDate.toLocaleDateString(
-      "en-us",
-      options
-    );
+    // this.dateArray = props.reviewData.visitDate.split("-");
+    // this.jsVisitDate = new Date(
+    //   `${this.dateArray[2]}-${this.dateArray[1]}-${this.dateArray[0]}`
+    // );
+    // this.formattedVisitDate = this.jsVisitDate.toLocaleDateString(
+    //   "en-us",
+    //   options
+    // );
   }
 
   render() {
@@ -42,9 +42,7 @@ export default class ReviewCard extends Component {
               </span>
             </Card.Subtitle>
             <Card.Text>{this.props.reviewData.reviewDescription}</Card.Text>
-            <Card.Text className="review-visit-date">
-              Visited on {this.formattedVisitDate}
-            </Card.Text>
+            <Card.Text className="review-visit-date">Visited on</Card.Text>
             <div className="review-like-section">
               <span>Helpful ?</span>
               <AiFillLike className="likeReview-btn" />

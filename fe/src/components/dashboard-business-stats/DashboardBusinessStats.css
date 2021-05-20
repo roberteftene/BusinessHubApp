@@ -124,3 +124,18 @@
   font-weight: 300;
   color: #fff;
 }
+
+.dashboard-business-stats-graphic {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.graphic-container {
+  width: 60%;
+  background-color: #fff;
+  padding: 3%;
+  border-radius: 20px;
+  box-shadow: 0 0.9125rem 0.9125rem 0 rgb(36 37 38 / 30%);
+  margin-bottom: 2%;
+}

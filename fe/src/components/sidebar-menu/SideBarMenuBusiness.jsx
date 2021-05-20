@@ -64,9 +64,14 @@ const SideBarMenuBusiness = () => {
             </Menu>
           </SidebarContent>
           <SidebarFooter>
-            <MenuItem icon={<FiLogOut />} onClick={() => AuthService.logout()}>
-              <a href="/">Logout</a>
-            </MenuItem>
+            <Menu iconShape="square">
+              <MenuItem
+                icon={<FiLogOut />}
+                onClick={() => AuthService.logout()}
+              >
+                <a href="/">Logout</a>
+              </MenuItem>
+            </Menu>
           </SidebarFooter>
         </ProSidebar>
       </div>

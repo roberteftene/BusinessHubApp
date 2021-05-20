@@ -32,6 +32,10 @@ class BusinessService {
   getBusinessById(serviceId) {
     return axios.get(`${API_URL}services/presentation/${serviceId}`);
   }
+
+  gatherDataForGraphic(serviceId, token, period, typeOfGraphic) {
+    return axios.get(`${API_URL}services/graphics/${serviceId}`);
+  }
 }
 
 export default new BusinessService();

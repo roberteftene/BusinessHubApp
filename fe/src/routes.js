@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SideBarMenu from "./components/sidebar-menu/SideBarMenu";
 import SideBarMenuBusiness from "./components/sidebar-menu/SideBarMenuBusiness";
 import AccountDetailsPage from "./pages/accountdetailspage/AccountDetailsPage";
+import AddReviewFormPage from "./pages/addreviewformpage/AddReviewFormPage";
 import BusinessDashboardPage from "./pages/businessdashboardpage/BusinessDashboardPage.jsx";
 import BusinessPresentationPage from "./pages/businesspresentationpage/BusinessPresentationPage";
 import BusinessProfilePage from "./pages/businessprofilepage/BusinessProfilePage";
@@ -26,6 +27,7 @@ export default function Routes() {
           <Route path="/community" component={CommunityPage}></Route>
           <Route path="/profile" component={ProfilePage} />
           <Route path="/business/:id" component={BusinessPresentationPage} />
+          <Route path="/businessReview/:id" component={AddReviewFormPage} />
           <>
             <SideBarMenuBusiness />
             <Route

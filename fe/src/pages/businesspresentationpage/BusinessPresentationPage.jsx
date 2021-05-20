@@ -15,6 +15,9 @@ import MapContainer from "../../components/business-maps-location/MapContainer";
 import ReviewService from "../../services/review/review.service";
 import ReviewCard from "../../components/review-card/ReviewCard";
 import Geocode from "react-geocode";
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import cogoToast from "cogo-toast";
 
 Geocode.setApiKey("AIzaSyCgPWdoEYShIDmxcPQJgsuWZLuhZylyQCA");
 Geocode.setLanguage("ro");
@@ -22,10 +25,11 @@ Geocode.setLanguage("ro");
 function BusinessPresentationPage() {
   const [businessDetails, setBusinessDetails] = useState({});
   const [workingHoursList, setWorkingHoursList] = useState([]);
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  const [coord, setCoord] = useState({});
   const [reviewArray, setReviewArray] = useState([]);
   const idObj = useParams();
+
+  const url = window.location;
 
   useEffect(() => {
     BusinessService.getBusinessById(idObj.id).then((res) => {
@@ -41,8 +45,10 @@ function BusinessPresentationPage() {
       , Bucharest`
     ).then((res) => {
       const { lat, lng } = res.results[0].geometry.location;
-      setLatitude(lat);
-      setLongitude(lng);
+      setCoord({
+        lat: lat,
+        lng: lng,
+      });
     });
   }, []);
 
@@ -52,6 +58,11 @@ function BusinessPresentationPage() {
       setReviewArray(reviews);
     });
   }, []);
+
+  const handleShareBtn = () => {
+    navigator.clipboard.writeText(url);
+    cogoToast.success("Link copied in clipboard!");
+  };
 
   return (
     <div className="business-presentation-container">
@@ -65,6 +76,7 @@ function BusinessPresentationPage() {
               <Col className="business-second-row-col">
                 <Rating
                   name="read-only"
+                  precision={0.5}
                   value={businessDetails.rating || 0}
                   readOnly
                 />
@@ -99,13 +111,28 @@ function BusinessPresentationPage() {
           <Col className="business-shortcut-options-col" sm={6}>
             <div className="business-shortcut-options">
               <button className="business-shortcut-options-btn save-business-btn">
-                <AiOutlineHeart className="shortcut-options-icon" /> Save
+                <AiOutlineHeart className="shortcut-options-icon" />
+                <a class="business-presentation-shortcut-links" href="#">
+                  Save
+                </a>
               </button>
               <button className="business-shortcut-options-btn ">
-                <BiMessageAdd className="shortcut-options-icon" /> Add review
+                <BiMessageAdd className="shortcut-options-icon" />
+                <a
+                  class="business-presentation-shortcut-links"
+                  href={`/businessReview/${idObj.id}`}
+                >
+                  Add review
+                </a>
               </button>
               <button className="business-shortcut-options-btn ">
-                <FiShare className="shortcut-options-icon" /> Share
+                <FiShare className="shortcut-options-icon" />
+                <a
+                  class="business-presentation-shortcut-links"
+                  onClick={() => handleShareBtn()}
+                >
+                  Share
+                </a>
               </button>
             </div>
           </Col>
@@ -185,7 +212,7 @@ function BusinessPresentationPage() {
                 Location and Contact
               </Card.Title>
               <Card.Body>
-                <MapContainer latitude={latitude} longitude={longitude} />
+                <MapContainer coord={coord} />
                 <div className="shortcut-contact shortcut-contact-location map-contact ">
                   <IoIosPin className="location-icon" />
                   <span className=" business-presentation-location">
