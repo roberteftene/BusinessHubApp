@@ -1,18 +1,13 @@
 package com.businesshub.be.service.BusinessesService;
 
 import com.businesshub.be.exceptions.MissingSubscriptionException;
-import com.businesshub.be.models.ServiceModel;
-import com.businesshub.be.models.UserAccountModel;
-import com.businesshub.be.models.UserDetailsModel;
-import com.businesshub.be.models.WorkingHoursModel;
+import com.businesshub.be.models.*;
 import com.businesshub.be.repository.ServiceRepository;
 import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,6 +83,54 @@ public class BusinessService {
     public ServiceModel getServiceById(Integer id) {
         ServiceModel serviceModel = serviceRepository.findById(id).get();
         return serviceModel;
+    }
+
+    public Map<String,Integer> getReviewsDataForBarchartGraphic(int serviceId, EPeriod period) {
+        List<ReviewModel> reviews = serviceRepository.findById(serviceId).get().getReviewModelList();
+        List<ReviewModel> reviewForDesiredPeriod = new ArrayList<>();
+
+        reviews.forEach(reviewModel -> {
+            if (reviewModel.checkIfSamePeriod(period)) {
+                reviewForDesiredPeriod.add(reviewModel);
+            }
+        });
+
+        Map<String,Integer> reviewsByStars = new HashMap<>();
+        int oneStarCounter = 0,
+                twoStarCounter = 0,
+                threeStarsCounter = 0,
+                fourStarsCounter = 0,
+                fiveStarsCounter = 0;
+
+        for (ReviewModel reviewModel : reviewForDesiredPeriod) {
+            switch (reviewModel.getReviewRating()) {
+                case 5:
+                    fiveStarsCounter++;
+                    break;
+                case 4:
+                    fourStarsCounter++;
+                    break;
+                case 3:
+                    threeStarsCounter++;
+                    break;
+                case 2:
+                    twoStarCounter++;
+                    break;
+                case 1:
+                    oneStarCounter++;
+                    break;
+            }
+
+        }
+
+        reviewsByStars.put(EGraphicRatingAxis.FIVE_STAR.toString(), fiveStarsCounter);
+        reviewsByStars.put(EGraphicRatingAxis.FOUR_STAR.toString(),fourStarsCounter);
+        reviewsByStars.put(EGraphicRatingAxis.THREE_STAR.toString(),threeStarsCounter);
+        reviewsByStars.put(EGraphicRatingAxis.TWO_STAR.toString(),twoStarCounter);
+        reviewsByStars.put(EGraphicRatingAxis.ONE_STAR.toString(),oneStarCounter);
+
+        return  reviewsByStars;
+
     }
 
 

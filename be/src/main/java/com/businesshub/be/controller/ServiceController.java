@@ -1,16 +1,17 @@
 package com.businesshub.be.controller;
 
 import com.businesshub.be.exceptions.MissingSubscriptionException;
+import com.businesshub.be.models.EPeriod;
 import com.businesshub.be.models.ServiceModel;
 import com.businesshub.be.payload.request.CommunityImportanceTop;
+import com.businesshub.be.payload.request.GraphicRequestBody;
 import com.businesshub.be.service.BusinessesService.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.ServiceMode;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -48,4 +49,9 @@ public class ServiceController {
         return businessService.getServiceById(id);
     }
 
+    @PostMapping("/graphicData/{id}/{period}")
+    @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
+    public Map<String ,Integer> getGraphicData(@PathVariable(value = "id") int id, @PathVariable(value = "period") EPeriod period) {
+        return businessService.getReviewsDataForBarchartGraphic(id,period);
+    }
 }
