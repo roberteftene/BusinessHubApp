@@ -33,8 +33,14 @@ class BusinessService {
     return axios.get(`${API_URL}services/presentation/${serviceId}`);
   }
 
-  gatherDataForGraphic(serviceId, token, period, typeOfGraphic) {
-    return axios.get(`${API_URL}services/graphics/${serviceId}`);
+  gatherDataForGraphic(serviceId, period, token) {
+    return axios.post(
+      `${API_URL}services/graphicData/${serviceId}/${period}`,
+      "",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   }
 }
 

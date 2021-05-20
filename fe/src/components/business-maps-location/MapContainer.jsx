@@ -17,8 +17,8 @@ export class MapContainer extends Component {
           zoom={16}
           style={mapStyles}
           initialCenter={{
-            lat: this.props.coord.lat,
-            lng: this.props.coord.lng,
+            lat: parseFloat(this.props.coord.lat),
+            lng: parseFloat(this.props.coord.lng),
           }}
         >
           <Marker

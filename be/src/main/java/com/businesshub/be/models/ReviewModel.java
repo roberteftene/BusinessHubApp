@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.nimbusds.oauth2.sdk.util.date.SimpleDate;
 import lombok.Data;
 import lombok.ToString;
-import org.joda.time.LocalDate;
 import org.springframework.security.core.parameters.P;
 
 import javax.persistence.*;

@@ -7,8 +7,32 @@ import { RiStarSFill } from "react-icons/ri";
 import { Button } from "react-bootstrap";
 import { FaConciergeBell } from "react-icons/fa";
 import VerticalBar from "../vertical-bar-reviewsRating/VerticalBar";
-
+import BusinessService from "../../services/business/business.service";
+import { useEffect, useState } from "react";
+import AuthService from "../../services/auth/auth.service";
 function DashboardBusinessStats(props) {
+  const [graphicData, setGraphicData] = useState({});
+  const userLoggedIn = AuthService.getLoggedUser();
+  const [selectedPeriodOption, setSelectedPeriodOption] = useState("");
+
+  useEffect(() => {
+    BusinessService.gatherDataForGraphic(
+      props.businessData.serviceId,
+      selectedPeriodOption,
+      userLoggedIn.token
+    ).then((res) => {
+      const data = res.data;
+      setGraphicData(data);
+    });
+  }, [selectedPeriodOption]);
+
+  const handlePeriodChange = (e) => {
+    let periodSelectedOption = document.querySelector(
+      ".business-stats-period-option"
+    ).value;
+    setSelectedPeriodOption(periodSelectedOption);
+  };
+
   return (
     <div className="dashboard-business-stats-container">
       <div className="dashboard-header-section-container">
@@ -19,11 +43,14 @@ function DashboardBusinessStats(props) {
           <Form.Label>
             Select period for generating statistic graphics
           </Form.Label>
-          <Form.Control as="select">
-            <option>Today</option>
-            <option>This week</option>
-            <option>This month</option>
-            <option>All</option>
+          <Form.Control
+            as="select"
+            className="business-stats-period-option"
+            onChange={(e) => handlePeriodChange(e)}
+          >
+            <option value="TODAY">Today</option>
+            <option value="THIS_MONTH">This month</option>
+            <option value="FOREVER">All</option>
           </Form.Control>
         </div>
       </div>
@@ -84,7 +111,7 @@ function DashboardBusinessStats(props) {
       </Row>
       <Row className="dashboard-business-stats-graphic ">
         <div className="graphic-container">
-          <VerticalBar />
+          <VerticalBar graphicData={graphicData} />
         </div>
       </Row>
     </div>
