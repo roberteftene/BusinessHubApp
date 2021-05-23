@@ -27,8 +27,10 @@ const SideBarMenu = () => {
 
   useEffect(() => {
     setLocationHref(window.location.pathname);
-    if (currLoggedUser.roles.includes("ROLE_BUSINESSOWNER")) {
-      setIsOwner(true);
+    if (currLoggedUser !== null) {
+      if (currLoggedUser.roles.includes("ROLE_BUSINESSOWNER")) {
+        setIsOwner(true);
+      }
     }
   }, []);
 
@@ -58,12 +60,17 @@ const SideBarMenu = () => {
               >
                 <a href="/community">Community Top</a>
               </MenuItem>
-              <MenuItem
-                className={locationHref === "/profile" ? "active" : ""}
-                icon={<BsPerson />}
-              >
-                <a href="/profile">Profile</a>
-              </MenuItem>
+              {currLoggedUser !== null && (
+                <>
+                  <MenuItem
+                    className={locationHref === "/profile" ? "active" : ""}
+                    icon={<BsPerson />}
+                  >
+                    <a href="/profile">Profile</a>
+                  </MenuItem>
+                </>
+              )}
+
               {isOwner === true && (
                 <>
                   <MenuItem
