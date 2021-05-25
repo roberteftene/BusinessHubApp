@@ -14,7 +14,7 @@ public class EmployeeModel {
     @Column(name= "employee_id")
     private long employeeId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "useraccount_id",referencedColumnName = "id")
     @JsonIgnore
     private UserAccountModel userAccountModel;

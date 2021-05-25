@@ -44,4 +44,17 @@ public class UserController {
         String username = employeeUsername.getUserName();
         return userService.addEmployeeAccount(username,serviceId);
     }
+
+    @GetMapping("/employees/{ownerId}")
+    @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
+    public List<UserAccountModel> getAllEmployees(@PathVariable(value = "ownerId") Long ownerId) {
+            return userService.getAllEmployeesByOwnerId(ownerId);
+    }
+
+    @PutMapping("/employees")
+    @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
+    public MessageResponse removeEmployee(@RequestBody EmployeeUsername employeeUsername) {
+        String username = employeeUsername.getUserName();
+        return userService.removeEmployee(username);
+    }
 }
