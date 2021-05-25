@@ -1,6 +1,7 @@
 package com.businesshub.be.controller;
 
 import com.businesshub.be.models.ERole;
+import com.businesshub.be.models.EmployeeModel;
 import com.businesshub.be.models.Role;
 import com.businesshub.be.models.UserAccountModel;
 import com.businesshub.be.payload.request.LoginRequest;
@@ -14,6 +15,7 @@ import com.businesshub.be.security.services.UserDetailsImpl;
 import com.businesshub.be.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -111,6 +113,10 @@ public class AuthController {
                         roles.add(businessownerRole);
 
                         break;
+                    case "employee":
+                        Role employeeRole = roleRepository.findByName(ERole.ROLE_EMPLOYEE)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -124,5 +130,6 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
 
 }
