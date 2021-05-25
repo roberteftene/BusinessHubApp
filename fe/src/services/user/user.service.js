@@ -1,23 +1,24 @@
-import axios from 'axios';
-import authHeader from './auth-header';
+import axios from "axios";
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = process.env.REACT_APP_API_BASE_URL;
 
 class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + 'all');
+  addEmployee(serviceId, token, username) {
+    return axios.post(`${API_URL}account/employees/${serviceId}`, username, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   }
 
-  getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+  getEmployeesByOwnerId(ownerId, token) {
+    return axios.get(`${API_URL}account/employees/${ownerId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   }
 
-  getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
-  }
-
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+  removeEmployee(username, token) {
+    return axios.put(`${API_URL}account/employees`, username, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   }
 }
 

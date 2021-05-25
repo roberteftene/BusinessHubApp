@@ -9,13 +9,11 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 
-import { FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut } from "react-icons/fi";
 import { BsPerson, BsMoon } from "react-icons/bs";
-import { MdBusinessCenter } from "react-icons/md";
 import { AiOutlinePieChart } from "react-icons/ai";
 import { AiOutlineProfile } from "react-icons/ai";
-import { MdPayment } from "react-icons/md";
+import { MdWork } from "react-icons/md";
 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./SideBarMenu.css";
@@ -53,7 +51,12 @@ const SideBarMenuBusiness = () => {
               >
                 <a href="/business-profile">Business profile</a>
               </MenuItem>
-
+              <MenuItem
+                className={locationHref === "/employees" ? "active" : ""}
+                icon={<MdWork />}
+              >
+                <a href="/employees">Employees</a>
+              </MenuItem>
               <MenuItem
                 className={locationHref === "/home" ? "active" : ""}
                 icon={<FiHome />}

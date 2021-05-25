@@ -1,0 +1,19 @@
+.employees-page-container {
+  background-color: #11527836;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.employee-page {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-employee-btn {
+  margin-top: 3%;
+  margin-bottom: 3%;
+}

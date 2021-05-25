@@ -7,6 +7,7 @@ import BusinessDashboardPage from "./pages/businessdashboardpage/BusinessDashboa
 import BusinessPresentationPage from "./pages/businesspresentationpage/BusinessPresentationPage";
 import BusinessProfilePage from "./pages/businessprofilepage/BusinessProfilePage";
 import CommunityPage from "./pages/communitytoppage/CommunityPage";
+import EmployeePage from "./pages/employeespage/EmployeePage";
 import Home from "./pages/homepage/HomePage.jsx";
 import LandingPage from "./pages/landingpage/landingPage";
 import LoginPage from "./pages/loginpage/LoginPage";
@@ -35,6 +36,7 @@ export default function Routes() {
               component={BusinessDashboardPage}
             />
             <Route path="/business-profile" component={BusinessProfilePage} />
+            <Route path="/employees" component={EmployeePage} />
           </>
         </>
       </Switch>
