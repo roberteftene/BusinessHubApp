@@ -1,5 +1,6 @@
 package com.businesshub.be.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,23 +15,34 @@ public class ReservationModel {
     private Integer reservId;
     @Column(name = "date")
     private String reservationDate;
-    @Column(name = "time")
-    private String reservationTime;
-    @Column(name = "status")
-    private String reservationStatus;
     @Column(name = "no_persons")
     private int noPersons;
+    @Column(name = "details")
+    private String details;
+    @Column(name = "client_name")
+    private String clientName;
 
-    private Integer serviceId;
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", referencedColumnName = "service_id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private ServiceModel serviceId;
 
-    public ReservationModel(String reservationDate, String reservationTime, String reservationStatus, int noPersons, Integer serviceId, Integer userId) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    private UserAccountModel userId;
+
+    public ReservationModel(String reservationDate, int noPersons, String details, String clientName) {
         this.reservationDate = reservationDate;
-        this.reservationTime = reservationTime;
-        this.reservationStatus = reservationStatus;
         this.noPersons = noPersons;
-        this.serviceId = serviceId;
-        this.userId = userId;
+        this.details = details;
+        this.clientName = clientName;
+    }
+
+    public ReservationModel(String reservationDate, int noPersons, String details) {
+        this.reservationDate = reservationDate;
+        this.noPersons = noPersons;
+        this.details = details;
     }
 
     public ReservationModel() {
