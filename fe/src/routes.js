@@ -13,6 +13,7 @@ import LandingPage from "./pages/landingpage/landingPage";
 import LoginPage from "./pages/loginpage/LoginPage";
 import ProfilePage from "./pages/profilepage/ProfilePage";
 import RegisterPage from "./pages/registerpage/registerPage";
+import BookingsManagerPage from "./pages/rezervationmanagerpage/BookingsManagerPage";
 
 export default function Routes() {
   return (
@@ -27,8 +28,11 @@ export default function Routes() {
           <Route path="/home" exact component={Home}></Route>
           <Route path="/community" component={CommunityPage}></Route>
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/employee-bookings" component={BookingsManagerPage} />
+
           <Route path="/business/:id" component={BusinessPresentationPage} />
           <Route path="/businessReview/:id" component={AddReviewFormPage} />
+
           <>
             <SideBarMenuBusiness />
             <Route

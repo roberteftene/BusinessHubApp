@@ -1,0 +1,25 @@
+.rezervation-manager-page-container {
+  background-color: #11527836;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.add-booking-btn {
+  margin-top: 3%;
+}
+
+.rezervation-manager-page {
+  width: 60%;
+  margin-top: 2%;
+}
+
+.calendar-container {
+  background-color: white;
+}
+.calendarWrapper {
+  background-color: white;
+  padding: 5%;
+}

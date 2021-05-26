@@ -42,6 +42,12 @@ class BusinessService {
       }
     );
   }
+
+  getServiceIdByEmployeeId(employeeId, token) {
+    return axios.get(`${API_URL}services/getByEmployee/${employeeId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 export default new BusinessService();

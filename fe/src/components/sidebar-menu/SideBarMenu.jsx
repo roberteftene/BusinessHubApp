@@ -24,12 +24,16 @@ const SideBarMenu = () => {
   const currLoggedUser = AuthService.getLoggedUser();
   const [locationHref, setLocationHref] = useState("");
   const [isOwner, setIsOwner] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
 
   useEffect(() => {
     setLocationHref(window.location.pathname);
     if (currLoggedUser !== null) {
       if (currLoggedUser.roles.includes("ROLE_BUSINESSOWNER")) {
         setIsOwner(true);
+      }
+      if (currLoggedUser.roles.includes("ROLE_EMPLOYEE")) {
+        setIsEmployee(true);
       }
     }
   }, []);
@@ -80,6 +84,19 @@ const SideBarMenu = () => {
                     icon={<MdBusinessCenter />}
                   >
                     <a href="/business-dashboard">My businesses</a>
+                  </MenuItem>
+                </>
+              )}
+
+              {isEmployee === true && (
+                <>
+                  <MenuItem
+                    className={
+                      locationHref === "/employee-bookings" ? "active" : ""
+                    }
+                    icon={<MdBusinessCenter />}
+                  >
+                    <a href="/employee-bookings">BookingsManager</a>
                   </MenuItem>
                 </>
               )}
