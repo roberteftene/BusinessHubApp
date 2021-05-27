@@ -2,6 +2,7 @@ package com.businesshub.be.controller;
 
 import com.businesshub.be.models.ReservationModel;
 import com.businesshub.be.payload.request.BookingRequestBody;
+import com.businesshub.be.payload.response.MessageResponse;
 import com.businesshub.be.service.BookingService.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +18,7 @@ public class BookingController {
 
     @PostMapping("/{serviceId}")
     @PreAuthorize("hasRole('EMPLOYEE') or hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
-    public ReservationModel saveReservation(@PathVariable(value = "serviceId") int serviceId, @RequestBody BookingRequestBody requestBody) {
+    public MessageResponse saveReservation(@PathVariable(value = "serviceId") int serviceId, @RequestBody BookingRequestBody requestBody) {
         return bookingService.saveBooking(serviceId,requestBody);
     }
 

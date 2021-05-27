@@ -3,6 +3,7 @@ package com.businesshub.be.service.BusinessesService;
 import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.*;
 import com.businesshub.be.repository.ServiceRepository;
+import com.businesshub.be.repository.UserEmployeeRepository;
 import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class BusinessService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserEmployeeRepository employeeRepository;
 
     private static double noReviewsImportanceIndex = 0.4;
     private static double ratingImportanceIndex = 0.6;
@@ -131,6 +135,15 @@ public class BusinessService {
 
         return  reviewsByStars;
 
+    }
+    
+    public int getServiceIdByEmployeeId(long employeeId) {
+        return employeeRepository.findAll().stream()
+                .filter(employeeModel -> employeeModel.getUserAccountModel().getId().equals(employeeId))
+                .collect(Collectors.toList())
+                .get(0)
+                .getServiceModel()
+                .getServiceId();
     }
 
 

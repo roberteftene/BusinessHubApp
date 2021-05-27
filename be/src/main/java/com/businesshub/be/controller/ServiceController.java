@@ -54,4 +54,10 @@ public class ServiceController {
     public Map<String ,Integer> getGraphicData(@PathVariable(value = "id") int id, @PathVariable(value = "period") EPeriod period) {
         return businessService.getReviewsDataForBarchartGraphic(id,period);
     }
+
+    @GetMapping("/getByEmployee/{employeeId}")
+    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
+    public int getServiceIdByEmployeeId(@PathVariable(value = "employeeId") long employeeId) {
+        return businessService.getServiceIdByEmployeeId(employeeId);
+    }
 }
