@@ -60,7 +60,9 @@ export default class TopServiceCard extends Component {
           </Card.Title>
 
           <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
-          <Card.Text>{this.props.service.serviceDescription}</Card.Text>
+          <Card.Text>
+            {this.props.service.serviceDescription.slice(0, 30)}
+          </Card.Text>
           <Card.Link className="community-card-view-more-btn" href="#">
             View more
             <FaLocationArrow className="view-more-icon" />
