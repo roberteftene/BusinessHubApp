@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import "./BookingsManagerPage.css";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -7,6 +7,9 @@ import cogoToast from "cogo-toast";
 import BookingService from "../../services/booking/booking.service";
 import AuthService from "../../services/auth/auth.service";
 import BusinessService from "../../services/business/business.service";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
+import BookingCard from "../../components/booking-card/BookingCard";
 
 export default class BookingsManagerPage extends Component {
   constructor(props) {
@@ -21,11 +24,21 @@ export default class BookingsManagerPage extends Component {
       bookingDate: "",
       bookingTime: "",
       businessId: 0,
+      bookingsObj: {
+        FOREVER: [],
+        THIS_MONTH: [],
+        THIS_WEEK: [],
+        TODAY: [],
+      },
     };
     this.currLoggedUser = AuthService.getLoggedUser();
   }
 
   componentDidMount() {
+    BookingService.getAllBookings(this.currLoggedUser.token).then((res) => {
+      const resData = res.data;
+      this.setState({ bookingsObj: resData });
+    });
     BusinessService.getServiceIdByEmployeeId(
       this.currLoggedUser.id,
       this.currLoggedUser.token
@@ -68,7 +81,42 @@ export default class BookingsManagerPage extends Component {
     }
   }
 
+  businessesArrayToGridArray(totalCols, period) {
+    let obj = [];
+    switch (period) {
+      case "TODAY":
+        obj = this.state.bookingsObj.TODAY;
+        break;
+      case "FOREVER":
+        obj = this.state.bookingsObj.FOREVER;
+        break;
+      case "THIS_MONTH":
+        obj = this.state.bookingsObj.THIS_MONTH;
+        break;
+      case "THIS_WEEK":
+        obj = this.state.bookingsObj.THIS_WEEK;
+        break;
+    }
+    let gridArray = [[]];
+    let countColumns = 1;
+    for (var i = 0; i < obj.length; i++) {
+      gridArray[gridArray.length - 1].push(obj[i]);
+      if (countColumns <= totalCols) {
+        countColumns++;
+      }
+      if (countColumns > totalCols && i !== obj.length - 1) {
+        countColumns = 1;
+        gridArray.push([]);
+      }
+    }
+    return gridArray;
+  }
+
   render() {
+    let gridToday = this.businessesArrayToGridArray(2, "TODAY");
+    let gridForever = this.businessesArrayToGridArray(2, "FOREVER");
+    let gridMonth = this.businessesArrayToGridArray(2, "THIS_MONTH");
+    let gridWeek = this.businessesArrayToGridArray(2, "THIS_WEEK");
     return (
       <div className="rezervation-manager-page-container">
         <Button
@@ -78,9 +126,108 @@ export default class BookingsManagerPage extends Component {
           Add booking
         </Button>
         <div className="rezervation-manager-page">
-          <h1>Today</h1>
-          <h1>This week</h1>
-          <h1>Future bookings</h1>
+          <Accordion defaultActiveKey="0">
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="0">
+                Today
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  {gridToday.map((row) => {
+                    return (
+                      <Row>
+                        {row.map((col) => {
+                          return (
+                            <Col className="booking-card-col">
+                              <BookingCard
+                                key={col.reservId}
+                                booking={col}
+                              ></BookingCard>
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    );
+                  })}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="1">
+                This week
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                  {gridWeek.map((row) => {
+                    return (
+                      <Row>
+                        {row.map((col) => {
+                          return (
+                            <Col className="booking-card-col">
+                              <BookingCard
+                                key={col.reservId}
+                                booking={col}
+                              ></BookingCard>
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    );
+                  })}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="2">
+                Next this month
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="2">
+                <Card.Body>
+                  {gridMonth.map((row) => {
+                    return (
+                      <Row>
+                        {row.map((col) => {
+                          return (
+                            <Col className="booking-card-col">
+                              <BookingCard
+                                key={col.reservId}
+                                booking={col}
+                              ></BookingCard>
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    );
+                  })}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="3">
+                All
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="3">
+                <Card.Body>
+                  {gridForever.map((row) => {
+                    return (
+                      <Row>
+                        {row.map((col) => {
+                          return (
+                            <Col className="booking-card-col">
+                              <BookingCard
+                                key={col.reservId}
+                                booking={col}
+                              ></BookingCard>
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    );
+                  })}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         </div>
 
         <Modal

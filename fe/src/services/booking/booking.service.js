@@ -7,6 +7,12 @@ class BookingService {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+
+  getAllBookings(token) {
+    return axios.get(`${API_URL}bookings`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 export default new BookingService();
