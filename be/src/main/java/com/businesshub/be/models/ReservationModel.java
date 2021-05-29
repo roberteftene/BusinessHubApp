@@ -1,9 +1,14 @@
 package com.businesshub.be.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @Entity(name = "reservation")
 @Data
@@ -24,12 +29,12 @@ public class ReservationModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", referencedColumnName = "service_id")
-    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    @JsonIgnore
     private ServiceModel serviceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    @JsonIgnore
     private UserAccountModel userId;
 
     public ReservationModel(String reservationDate, int noPersons, String details, String clientName) {
@@ -46,5 +51,14 @@ public class ReservationModel {
     }
 
     public ReservationModel() {
+    }
+
+    public Calendar convertReviewDate() throws ParseException {
+        String[] dateAndTime = this.reservationDate.split(" ");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateFormat = sdf.parse(dateAndTime[0]);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateFormat);
+        return cal;
     }
 }
