@@ -43,6 +43,12 @@ class BusinessService {
     );
   }
 
+  gatherDataForBookingGraphic(serviceId, token, reqBody) {
+    return axios.post(`${API_URL}services/graphicData/${serviceId}`, reqBody, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
   getServiceIdByEmployeeId(employeeId, token) {
     return axios.get(`${API_URL}services/getByEmployee/${employeeId}`, {
       headers: { Authorization: `Bearer ${token}` },

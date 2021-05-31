@@ -10,10 +10,17 @@ import VerticalBar from "../vertical-bar-reviewsRating/VerticalBar";
 import BusinessService from "../../services/business/business.service";
 import { useEffect, useState } from "react";
 import AuthService from "../../services/auth/auth.service";
+import cogoToast from "cogo-toast";
+import VerticalBarBookings from "../vertical-bar-reviewsRating/VerticalBarBookings";
+
 function DashboardBusinessStats(props) {
   const [graphicData, setGraphicData] = useState({});
   const userLoggedIn = AuthService.getLoggedUser();
   const [selectedPeriodOption, setSelectedPeriodOption] = useState("");
+  const [startingPeriodDate, setStartingPeriodDate] = useState("");
+  const [endingPeriodDate, setEndingPeriodDate] = useState("");
+  const [bookingGraphicData, setBookingGraphicData] = useState([]);
+  const [bookingGraphicDataByDay, setBookingGraphicDataByDay] = useState({});
 
   useEffect(() => {
     BusinessService.gatherDataForGraphic(
@@ -33,6 +40,33 @@ function DashboardBusinessStats(props) {
     setSelectedPeriodOption(periodSelectedOption);
   };
 
+  const handleGenerateBtnClick = () => {
+    let isValid = true;
+    if (startingPeriodDate === "" || endingPeriodDate === "") {
+      cogoToast.warn("You must enter a starting date and an ending date");
+      isValid = false;
+    }
+    if (isValid) {
+      BusinessService.gatherDataForBookingGraphic(
+        props.businessData.serviceId,
+        userLoggedIn.token,
+        {
+          startDate: startingPeriodDate,
+          endDate: endingPeriodDate,
+        }
+      ).then((res) => {
+        const resData = res.data;
+        setBookingGraphicData(resData);
+        setBookingGraphicDataByDay(resData.Monday);
+      });
+
+      const daysOptionContainer = document.querySelector(
+        ".graphic-days-container"
+      );
+      daysOptionContainer.style.display = "flex";
+    }
+  };
+
   return (
     <div className="dashboard-business-stats-container">
       <div className="dashboard-header-section-container">
@@ -40,18 +74,6 @@ function DashboardBusinessStats(props) {
           <h1 className="dashboard-business-title">
             {props.businessData.serviceName}
           </h1>
-          <Form.Label>
-            Select period for generating statistic graphics
-          </Form.Label>
-          <Form.Control
-            as="select"
-            className="business-stats-period-option"
-            onChange={(e) => handlePeriodChange(e)}
-          >
-            <option value="TODAY">Today</option>
-            <option value="THIS_MONTH">This month</option>
-            <option value="FOREVER">All</option>
-          </Form.Control>
         </div>
       </div>
       <Row className="dashboard-business-stats-card">
@@ -84,22 +106,12 @@ function DashboardBusinessStats(props) {
             </Button>
           </div>
         </Col>
-        <Col className="business-stats-card clicks-stats">
-          <div className="business-stats-card-left">
-            <span className="business-stats-card-title">Clicks</span>
-            <span className="business-stats-card-value">2.310</span>
-          </div>
-          <div className="business-stats-card-right">
-            <HiCursorClick className="business-stats-card-icon" />
-            <Button className="business-stats-card-btn reviews-btn">
-              View more
-            </Button>
-          </div>
-        </Col>
         <Col className="business-stats-card bookings-stats">
           <div className="business-stats-card-left">
             <span className="business-stats-card-title">Bookings</span>
-            <span className="business-stats-card-value">310</span>
+            <span className="business-stats-card-value">
+              {props.businessData.reservationModelsList.length}
+            </span>
           </div>
           <div className="business-stats-card-right">
             <FaConciergeBell className="business-stats-card-icon" />
@@ -109,9 +121,114 @@ function DashboardBusinessStats(props) {
           </div>
         </Col>
       </Row>
+      <Row className="dashboard-header-section graphic-options-container">
+        <Form.Label className="graphic-label">
+          <b>Select period for generating a graphic based on reviews</b>
+        </Form.Label>
+        <Form.Control
+          as="select"
+          className="business-stats-period-option"
+          onChange={(e) => handlePeriodChange(e)}
+        >
+          <option value="TODAY">Today</option>
+          <option value="THIS_MONTH">This month</option>
+          <option value="FOREVER">All</option>
+        </Form.Control>
+      </Row>
       <Row className="dashboard-business-stats-graphic ">
         <div className="graphic-container">
           <VerticalBar graphicData={graphicData} />
+        </div>
+      </Row>
+
+      <Row className="dashboard-header-section graphic-options-container">
+        <Form.Label className="graphic-label">
+          <b>Select a time range for generating a graphic based on bookings</b>
+        </Form.Label>
+        <div className="period-graphic">
+          <Form.Label className="">Starting date</Form.Label>
+          <Form.Control
+            type="date"
+            className="business-stats-period-option"
+            onChange={(e) => setStartingPeriodDate(e.target.value)}
+          ></Form.Control>
+          <Form.Label className="">Ending date</Form.Label>
+          <Form.Control
+            type="date"
+            className="business-stats-period-option"
+            onChange={(e) => setEndingPeriodDate(e.target.value)}
+          ></Form.Control>
+          <Button
+            variant="primary"
+            className="generate-graphic-btn"
+            onClick={() => handleGenerateBtnClick()}
+          >
+            Generate
+          </Button>
+
+          <div className="graphic-days-container">
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Monday)
+              }
+            >
+              Monday
+            </span>
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Tuesday)
+              }
+            >
+              Tuesday
+            </span>
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Wednesday)
+              }
+            >
+              Wednesday
+            </span>
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Thursday)
+              }
+            >
+              Thursday
+            </span>
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Friday)
+              }
+            >
+              Friday
+            </span>
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Saturday)
+              }
+            >
+              Saturday
+            </span>
+            <span
+              className="graphic-day-option"
+              onClick={() =>
+                setBookingGraphicDataByDay(bookingGraphicData.Sunday)
+              }
+            >
+              Sunday
+            </span>
+          </div>
+        </div>
+      </Row>
+      <Row className="dashboard-business-stats-graphic ">
+        <div className="graphic-container">
+          <VerticalBarBookings graphicData={bookingGraphicDataByDay} />
         </div>
       </Row>
     </div>

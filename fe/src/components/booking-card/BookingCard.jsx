@@ -9,7 +9,7 @@ function BookingCard(props) {
           <Card.Title>
             {props.booking.clientName.length === 0 && (
               <>
-                <span>Client without account</span>
+                <span>User account</span>
               </>
             )}
             {props.booking.clientName.length !== 0 && (
