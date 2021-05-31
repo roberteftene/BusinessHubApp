@@ -57,7 +57,7 @@ public class ReservationModel {
     }
 
     public Calendar convertReviewDate() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date dateFormat = sdf.parse(this.reservationDate);
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateFormat);
@@ -77,36 +77,36 @@ public class ReservationModel {
 
         switch (day) {
             case Monday:
-                calendar.set(Calendar.DAY_OF_WEEK,2);
+                calendar.set(Calendar.DAY_OF_WEEK, 2);
                 break;
             case Tuesday:
-                calendar.set(Calendar.DAY_OF_WEEK,3);
+                calendar.set(Calendar.DAY_OF_WEEK, 3);
                 break;
             case Wednesday:
-                calendar.set(Calendar.DAY_OF_WEEK,4);
+                calendar.set(Calendar.DAY_OF_WEEK, 4);
                 break;
             case Thursday:
-                calendar.set(Calendar.DAY_OF_WEEK,5);
+                calendar.set(Calendar.DAY_OF_WEEK, 5);
                 break;
             case Friday:
-                calendar.set(Calendar.DAY_OF_WEEK,6);
+                calendar.set(Calendar.DAY_OF_WEEK, 6);
                 break;
             case Saturday:
-                calendar.set(Calendar.DAY_OF_WEEK,7);
+                calendar.set(Calendar.DAY_OF_WEEK, 7);
                 break;
             case Sunday:
-                calendar.set(Calendar.DAY_OF_WEEK,1);
+                calendar.set(Calendar.DAY_OF_WEEK, 1);
                 break;
         }
 
         return calendar;
     }
 
-    public static List<ReservationModel> getBookingsByDay(EDaysOfWeek day,List<ReservationModel> reservationModels) throws ParseException {
+    public static List<ReservationModel> getBookingsByDay(EDaysOfWeek day, List<ReservationModel> reservationModels) throws ParseException {
         Calendar calendar = ReservationModel.getCalendarCurrentDay(day);
         List<ReservationModel> bookingsByDay = new ArrayList<>();
         for (ReservationModel reservationModel : reservationModels) {
-            if(reservationModel.convertReviewDate().get(Calendar.DAY_OF_WEEK) == calendar.get(Calendar.DAY_OF_WEEK)) {
+            if (reservationModel.convertReviewDate().get(Calendar.DAY_OF_WEEK) == calendar.get(Calendar.DAY_OF_WEEK)) {
                 bookingsByDay.add(reservationModel);
             }
         }
@@ -120,37 +120,38 @@ public class ReservationModel {
         boolean midNight = false;
         switch (timeInterval) {
             case nineTo12:
-                calStartTime.set(Calendar.HOUR_OF_DAY,9);
-                calEndTime.set(Calendar.HOUR_OF_DAY,12);
+                calStartTime.set(Calendar.HOUR_OF_DAY, 9);
+                calEndTime.set(Calendar.HOUR_OF_DAY, 12);
                 break;
             case twelveTo3:
-                calStartTime.set(Calendar.HOUR_OF_DAY,12);
-                calEndTime.set(Calendar.HOUR_OF_DAY,15);
+                calStartTime.set(Calendar.HOUR_OF_DAY, 12);
+                calEndTime.set(Calendar.HOUR_OF_DAY, 15);
                 break;
             case threeTo6:
-                calStartTime.set(Calendar.HOUR_OF_DAY,15);
-                calEndTime.set(Calendar.HOUR_OF_DAY,18);
+                calStartTime.set(Calendar.HOUR_OF_DAY, 15);
+                calEndTime.set(Calendar.HOUR_OF_DAY, 18);
                 break;
             case sixTo9:
-                calStartTime.set(Calendar.HOUR_OF_DAY,18);
-                calEndTime.set(Calendar.HOUR_OF_DAY,21);
+                calStartTime.set(Calendar.HOUR_OF_DAY, 18);
+                calEndTime.set(Calendar.HOUR_OF_DAY, 21);
                 break;
             case past9:
-                calStartTime.set(Calendar.HOUR_OF_DAY,21);
+                calStartTime.set(Calendar.HOUR_OF_DAY, 21);
                 midNight = true;
                 break;
 
         }
-        if(!midNight) {
-            if(this.convertReviewDate().get(Calendar.HOUR_OF_DAY) > calStartTime.get(Calendar.HOUR_OF_DAY) &&
-                    this.convertReviewDate().get(Calendar.HOUR_OF_DAY) < calEndTime.get(Calendar.HOUR_OF_DAY)) {
-                checker = true;
+
+            if (!midNight) {
+                if (this.convertReviewDate().get(Calendar.HOUR_OF_DAY) >= calStartTime.get(Calendar.HOUR_OF_DAY) &&
+                        this.convertReviewDate().get(Calendar.HOUR_OF_DAY) < calEndTime.get(Calendar.HOUR_OF_DAY)) {
+                    checker = true;
+                }
+            } else {
+                if (this.convertReviewDate().get(Calendar.HOUR_OF_DAY) >= calStartTime.get(Calendar.HOUR_OF_DAY)) {
+                    checker = true;
+                }
             }
-        } else {
-            if(this.convertReviewDate().get(Calendar.HOUR_OF_DAY) > calStartTime.get(Calendar.HOUR_OF_DAY)) {
-                checker = true;
-            }
-        }
 
         return checker;
     }
