@@ -30,6 +30,7 @@ public class BookingService {
     public MessageResponse saveBooking(int serviceId, BookingRequestBody bookingRequestBody) {
         ServiceModel serviceModel = serviceRepository.findById(serviceId).get();
         ReservationModel reservationModel = bookingRequestBody.getReservationModel();
+        serviceModel.getReservationModelsList().add(reservationModel);
         reservationModel.setServiceId(serviceModel);
         if (bookingRequestBody.getUsername() == "") {
             bookingRepository.save(reservationModel);

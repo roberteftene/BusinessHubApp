@@ -1,8 +1,11 @@
 package com.businesshub.be.controller;
 
 import com.businesshub.be.exceptions.MissingSubscriptionException;
+import com.businesshub.be.models.EDaysOfWeek;
 import com.businesshub.be.models.EPeriod;
+import com.businesshub.be.models.ETimeInterval;
 import com.businesshub.be.models.ServiceModel;
+import com.businesshub.be.payload.request.BookingGraphicReqBody;
 import com.businesshub.be.payload.request.CommunityImportanceTop;
 import com.businesshub.be.payload.request.GraphicRequestBody;
 import com.businesshub.be.service.BusinessesService.BusinessService;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -59,5 +63,11 @@ public class ServiceController {
     @PreAuthorize("hasRole('EMPLOYEE') or hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
     public int getServiceIdByEmployeeId(@PathVariable(value = "employeeId") long employeeId) {
         return businessService.getServiceIdByEmployeeId(employeeId);
+    }
+
+    @PostMapping("/graphicData/{serviceId}")
+    @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
+    public Map<EDaysOfWeek,Map<ETimeInterval,Integer>> getBookingsDataForBarchartGraphic(@PathVariable(value = "serviceId") int serviceId, @RequestBody BookingGraphicReqBody bookingGraphicReqBody) throws ParseException {
+        return businessService.getBookingsDataForBarchartGraphic(serviceId,bookingGraphicReqBody.getStartDate(),bookingGraphicReqBody.getEndDate());
     }
 }

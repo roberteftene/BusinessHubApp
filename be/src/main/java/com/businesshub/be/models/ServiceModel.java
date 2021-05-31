@@ -48,6 +48,10 @@ public class ServiceModel {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
+    private List<ReservationModel> reservationModelsList;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<ReviewModel> reviewModelList;
 
     public ServiceModel() {
@@ -65,7 +69,7 @@ public class ServiceModel {
         this.userAccount = userAccount;
     }
 
-    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String address, String city, float rating, List<WorkingHoursModel> workingHoursList, List<ReviewModel> reviewModelList) {
+    public ServiceModel(String serviceName, String serviceEmail, String servicePhone, String serviceDescription, EServiceCategory category, String address, String city, float rating, List<WorkingHoursModel> workingHoursList, List<ReviewModel> reviewModelList,List<ReservationModel> reservationModels) {
         this.serviceName = serviceName;
         this.serviceEmail = serviceEmail;
         this.servicePhone = servicePhone;
@@ -76,7 +80,9 @@ public class ServiceModel {
         this.rating = rating;
         this.workingHoursList = workingHoursList;
         this.reviewModelList = reviewModelList;
+        this.reservationModelsList = reservationModels;
     }
+
 
     public float computeRating() {
         int sumOfRatings = 0;

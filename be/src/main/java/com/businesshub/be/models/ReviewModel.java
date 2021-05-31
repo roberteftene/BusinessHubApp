@@ -65,24 +65,24 @@ public class ReviewModel {
 
         Calendar currentDateCal = Calendar.getInstance();
         currentDateCal.setTime(new Date());
-        boolean todayCheck = false;
+        boolean checker = false;
         switch (period) {
             case TODAY:
-                 todayCheck = reviewDateCal.get(Calendar.DAY_OF_YEAR) == currentDateCal.get(Calendar.DAY_OF_YEAR) &&
+                 checker = reviewDateCal.get(Calendar.DAY_OF_YEAR) == currentDateCal.get(Calendar.DAY_OF_YEAR) &&
                         reviewDateCal.get(Calendar.YEAR) == currentDateCal.get(Calendar.YEAR);
                  break;
             case THIS_MONTH:
-                 todayCheck = reviewDateCal.get(Calendar.MONTH) == currentDateCal.get(Calendar.MONTH) &&
+                 checker = reviewDateCal.get(Calendar.MONTH) == currentDateCal.get(Calendar.MONTH) &&
                         reviewDateCal.get(Calendar.YEAR) == currentDateCal.get(Calendar.YEAR);
                  break;
             case FOREVER:
-                todayCheck = true;
+                checker = true;
                 break;
             default:
-                todayCheck = false;
+                checker = false;
                 break;
         }
-        return  todayCheck;
+        return  checker;
     }
 
 }

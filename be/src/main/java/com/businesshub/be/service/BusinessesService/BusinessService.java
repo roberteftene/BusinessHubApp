@@ -2,12 +2,14 @@ package com.businesshub.be.service.BusinessesService;
 
 import com.businesshub.be.exceptions.MissingSubscriptionException;
 import com.businesshub.be.models.*;
+import com.businesshub.be.repository.BookingRepository;
 import com.businesshub.be.repository.ServiceRepository;
 import com.businesshub.be.repository.UserEmployeeRepository;
 import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,8 +25,8 @@ public class BusinessService {
     @Autowired
     UserEmployeeRepository employeeRepository;
 
-    private static double noReviewsImportanceIndex = 0.4;
-    private static double ratingImportanceIndex = 0.6;
+    @Autowired
+    BookingRepository bookingRepository;
 
     public ServiceModel addService(ServiceModel serviceModel, long userId) throws MissingSubscriptionException {
         UserAccountModel userAccountModel = userRepository.findById(userId).get();
@@ -89,7 +91,70 @@ public class BusinessService {
         return serviceModel;
     }
 
-    public Map<String,Integer> getReviewsDataForBarchartGraphic(int serviceId, EPeriod period) {
+    public Map<EDaysOfWeek,Map<ETimeInterval,Integer>> getBookingsDataForBarchartGraphic(int serviceId, String startDate, String endDate) throws ParseException {
+
+        List<ReservationModel> reservationModels = serviceRepository.findById(serviceId).get().getReservationModelsList();
+        List<ReservationModel> reservationsByPeriod = new ArrayList<>();
+
+        for (ReservationModel reservationModel : reservationModels) {
+            if (reservationModel.convertReviewDate().after(ReservationModel.getCalendarDate(startDate)) &&
+                    reservationModel.convertReviewDate().before(ReservationModel.getCalendarDate(endDate))) {
+                reservationsByPeriod.add(reservationModel);
+            }
+        }
+        Map<EDaysOfWeek, Map<ETimeInterval,Integer>> bookingPopularTimes = new HashMap<>();
+        bookingPopularTimes.put(EDaysOfWeek.Monday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Monday, reservationsByPeriod));
+        bookingPopularTimes.put(EDaysOfWeek.Tuesday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Tuesday, reservationsByPeriod));
+        bookingPopularTimes.put(EDaysOfWeek.Wednesday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Wednesday, reservationsByPeriod));
+        bookingPopularTimes.put(EDaysOfWeek.Thursday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Thursday, reservationsByPeriod));
+        bookingPopularTimes.put(EDaysOfWeek.Friday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Friday, reservationsByPeriod));
+        bookingPopularTimes.put(EDaysOfWeek.Saturday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Saturday, reservationsByPeriod));
+        bookingPopularTimes.put(EDaysOfWeek.Sunday,getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek.Sunday, reservationsByPeriod));
+
+        return bookingPopularTimes;
+
+    }
+
+    public Map<ETimeInterval, Integer> getDictionaryWIthIntervalsCountersByDay(EDaysOfWeek dayOfWeek, List<ReservationModel> reservationsByPeriod) throws ParseException {
+        List<ReservationModel> bookingsByDayOfWeek = ReservationModel.getBookingsByDay(dayOfWeek, reservationsByPeriod);
+
+        int booking9To12Counter = 0,
+                booking12To3Counter = 0,
+                booking3To6Counter = 0,
+                booking6To9Counter = 0,
+                bookingPast9Counter = 0;
+
+        for (ReservationModel booking : bookingsByDayOfWeek) {
+            if(booking.checkIfTimeInInterval(ETimeInterval.nineTo12)) {
+                booking9To12Counter++;
+            }
+            if(booking.checkIfTimeInInterval(ETimeInterval.twelveTo3)) {
+                booking12To3Counter++;
+            }
+            if(booking.checkIfTimeInInterval(ETimeInterval.threeTo6)) {
+                booking3To6Counter++;
+            }
+            if(booking.checkIfTimeInInterval(ETimeInterval.sixTo9)) {
+                booking6To9Counter++;
+            }
+            if(booking.checkIfTimeInInterval(ETimeInterval.past9)) {
+                bookingPast9Counter++;
+            }
+        }
+
+        Map<ETimeInterval,Integer> intervalsCounter = new HashMap<>();
+        intervalsCounter.put(ETimeInterval.nineTo12,booking9To12Counter);
+        intervalsCounter.put(ETimeInterval.twelveTo3,booking12To3Counter);
+        intervalsCounter.put(ETimeInterval.threeTo6,booking3To6Counter);
+        intervalsCounter.put(ETimeInterval.sixTo9,booking6To9Counter);
+        intervalsCounter.put(ETimeInterval.past9,bookingPast9Counter);
+
+
+        return intervalsCounter;
+    }
+
+
+    public Map<String, Integer> getReviewsDataForBarchartGraphic(int serviceId, EPeriod period) {
         List<ReviewModel> reviews = serviceRepository.findById(serviceId).get().getReviewModelList();
         List<ReviewModel> reviewForDesiredPeriod = new ArrayList<>();
 
@@ -99,7 +164,7 @@ public class BusinessService {
             }
         });
 
-        Map<String,Integer> reviewsByStars = new HashMap<>();
+        Map<String, Integer> reviewsByStars = new HashMap<>();
         int oneStarCounter = 0,
                 twoStarCounter = 0,
                 threeStarsCounter = 0,
@@ -128,15 +193,15 @@ public class BusinessService {
         }
 
         reviewsByStars.put(EGraphicRatingAxis.FIVE_STAR.toString(), fiveStarsCounter);
-        reviewsByStars.put(EGraphicRatingAxis.FOUR_STAR.toString(),fourStarsCounter);
-        reviewsByStars.put(EGraphicRatingAxis.THREE_STAR.toString(),threeStarsCounter);
-        reviewsByStars.put(EGraphicRatingAxis.TWO_STAR.toString(),twoStarCounter);
-        reviewsByStars.put(EGraphicRatingAxis.ONE_STAR.toString(),oneStarCounter);
+        reviewsByStars.put(EGraphicRatingAxis.FOUR_STAR.toString(), fourStarsCounter);
+        reviewsByStars.put(EGraphicRatingAxis.THREE_STAR.toString(), threeStarsCounter);
+        reviewsByStars.put(EGraphicRatingAxis.TWO_STAR.toString(), twoStarCounter);
+        reviewsByStars.put(EGraphicRatingAxis.ONE_STAR.toString(), oneStarCounter);
 
-        return  reviewsByStars;
+        return reviewsByStars;
 
     }
-    
+
     public int getServiceIdByEmployeeId(long employeeId) {
         return employeeRepository.findAll().stream()
                 .filter(employeeModel -> employeeModel.getUserAccountModel().getId().equals(employeeId))

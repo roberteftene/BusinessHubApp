@@ -1,5 +1,7 @@
 package com.businesshub.be.models;
 
 public enum  EDaysOfWeek {
-    Monday, Thursday, Wednesday, Tuesday, Friday, Saturday, Sunday
+    Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday;
+
+
 }
