@@ -54,6 +54,8 @@ public class ServiceModel {
     @ToString.Exclude
     private List<ReviewModel> reviewModelList;
 
+
+
     public ServiceModel() {
     }
 

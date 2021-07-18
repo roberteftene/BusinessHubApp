@@ -36,6 +36,7 @@ function AccountDetailsPage() {
   const [serviceDescription, setServiceDescription] = useState("");
   const [subscriptions, setSubscriptions] = useState([]);
   const [isServiceOwner, setIsServiceOwner] = useState(true);
+  const [file, setFile] = useState(null);
   const history = useHistory();
   let workingSchedule = [];
 
@@ -147,6 +148,13 @@ function AccountDetailsPage() {
           .catch((err) => console.log(err.message));
       }
     }
+  };
+
+  const handleFileUpload = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    console.log(file);
+    setFile(file);
   };
 
   return (
@@ -344,18 +352,7 @@ function AccountDetailsPage() {
                     );
                   })}
                 </Col>
-                <h5>Products and prices</h5>
-                <div className="mb-3">
-                  <Form.File id="form-add-file">
-                    <Form.Text>
-                      Please upload a clear image or a pdf document with your
-                      prices towards adding it by us in the application. After
-                      that you will be able to modify them easily in the
-                      application dashboard.
-                    </Form.Text>
-                    <Form.File.Input />
-                  </Form.File>
-                </div>
+
                 <h3 className="details-form-headThree">Subscription</h3>
                 <p className="working-hours-description">
                   The payment will be processed by a third party after

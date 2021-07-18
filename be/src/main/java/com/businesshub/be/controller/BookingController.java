@@ -32,4 +32,10 @@ public class BookingController {
     public Map<EPeriod, List<ReservationModel>> getAllBookings() throws ParseException {
         return bookingService.getAllBookings();
     }
+
+    @GetMapping("/{userId}")
+    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('BUSINESSOWNER') or hasRole('ADMIN') or hasRole('USER')")
+    public List<ReservationModel> getReservationsByUserId(@PathVariable(value = "userId") Long userId) {
+        return bookingService.getBookingsByUserId(userId);
+    }
 }

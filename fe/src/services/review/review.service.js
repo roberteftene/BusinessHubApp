@@ -17,6 +17,10 @@ class ReviewService {
   getReviewsByBusinessId(businessId) {
     return axios.get(`${API_URL}reviews/${businessId}`);
   }
+
+  getReviewsByUserId(userId, token) {
+    return axios.get(`${API_URL}reviews/getByUser/${userId}`);
+  }
 }
 
 export default new ReviewService();

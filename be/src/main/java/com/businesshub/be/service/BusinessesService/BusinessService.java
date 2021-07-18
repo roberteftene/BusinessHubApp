@@ -9,6 +9,7 @@ import com.businesshub.be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.ws.ServiceMode;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,6 +48,19 @@ public class BusinessService {
 
         }
 
+    }
+
+    public void updateService(ServiceModel updatedService, int serviceId) {
+        ServiceModel serviceModel = serviceRepository.findById(serviceId).get();
+        serviceModel.setAddress(updatedService.getAddress());
+        serviceModel.setCategory(updatedService.getCategory());
+        serviceModel.setCity(updatedService.getCity());
+        serviceModel.setServiceDescription(updatedService.getServiceDescription());
+        serviceModel.setServiceEmail(updatedService.getServiceEmail());
+        serviceModel.setServiceName(updatedService.getServiceName());
+        serviceModel.setServicePhone(updatedService.getServicePhone());
+        serviceModel.setWorkingHoursList(updatedService.getWorkingHoursList());
+        serviceRepository.save(serviceModel);
     }
 
     public List<ServiceModel> getAllServicesByUserId(long userId) {

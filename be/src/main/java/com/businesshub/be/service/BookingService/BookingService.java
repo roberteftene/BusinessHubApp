@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -77,5 +78,20 @@ public class BookingService {
         allBookingsMap.put(EPeriod.THIS_MONTH,reservationModelsFutureMonth);
         allBookingsMap.put(EPeriod.FOREVER,reservationModels);
         return allBookingsMap;
+    }
+
+    public List<ReservationModel> getBookingsByUserId(Long userId) {
+
+        List<ReservationModel> reservations = bookingRepository.findAll();
+        List<ReservationModel> userReservations = new ArrayList<>();
+        for (ReservationModel reservation : reservations) {
+            if(reservation.getUserId() != null) {
+
+                if (reservation.getUserId().getId().equals(userId)) {
+                    userReservations.add(reservation);
+                }
+            }
+        }
+        return userReservations;
     }
 }

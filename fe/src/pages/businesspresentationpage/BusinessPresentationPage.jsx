@@ -18,11 +18,13 @@ import Geocode from "react-geocode";
 import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import cogoToast from "cogo-toast";
+import authService from "../../services/auth/auth.service";
 
 Geocode.setApiKey("AIzaSyCgPWdoEYShIDmxcPQJgsuWZLuhZylyQCA");
 Geocode.setLanguage("ro");
 
 function BusinessPresentationPage() {
+  const currLoggedUser = authService.getLoggedUser();
   const [businessDetails, setBusinessDetails] = useState({});
   const [workingHoursList, setWorkingHoursList] = useState([]);
   const [coord, setCoord] = useState({});
@@ -46,8 +48,8 @@ function BusinessPresentationPage() {
     ).then((res) => {
       const { lat, lng } = res.results[0].geometry.location;
       setCoord({
-        lat: lat,
-        lng: lng,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
       });
     });
   }, []);
@@ -62,6 +64,16 @@ function BusinessPresentationPage() {
   const handleShareBtn = () => {
     navigator.clipboard.writeText(url);
     cogoToast.success("Link copied in clipboard!");
+  };
+
+  const handleSaveService = () => {
+    BusinessService.addToFavorite(idObj.id, currLoggedUser.id)
+      .then((res) => {
+        cogoToast.success("Saved in your favorite list!");
+      })
+      .catch((err) => {
+        cogoToast.warn(err.message);
+      });
   };
 
   return (
@@ -112,7 +124,11 @@ function BusinessPresentationPage() {
             <div className="business-shortcut-options">
               <button className="business-shortcut-options-btn save-business-btn">
                 <AiOutlineHeart className="shortcut-options-icon" />
-                <a class="business-presentation-shortcut-links" href="#">
+                <a
+                  class="business-presentation-shortcut-links"
+                  href="#"
+                  onClick={handleSaveService}
+                >
                   Save
                 </a>
               </button>

@@ -32,6 +32,13 @@ public class ServiceController {
         return businessService.addService(serviceModel,id);
     }
 
+    @PutMapping("/update/{serviceId}")
+    @ResponseBody
+    @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
+    public void updateService(@RequestBody ServiceModel serviceModel, @PathVariable(value ="serviceId") int serviceId) {
+        businessService.updateService(serviceModel,serviceId);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('BUSINESSOWNER') or hasRole('ADMIN')")
     public List<ServiceModel> getServicesByUserId(@PathVariable(value = "id") long id) {

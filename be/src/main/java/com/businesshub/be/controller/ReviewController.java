@@ -32,4 +32,11 @@ public class ReviewController {
         return reviewService.getReviewsByServiceId(serviceId);
     }
 
+
+    @GetMapping("/getByUser/{userId}")
+    @ResponseBody
+    public List<ReviewModel> getReviewsByUserId(@PathVariable(value= "userId") Long userId) {
+        return reviewService.getReviewsByUserId(userId);
+    }
+
 }

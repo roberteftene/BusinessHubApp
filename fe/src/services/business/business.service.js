@@ -54,6 +54,30 @@ class BusinessService {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+
+  getFavorites(userId) {
+    return axios.get(`${API_URL}favoritelist/${userId}`);
+  }
+
+  addToFavorite(serviceId, userId) {
+    return axios.post(`${API_URL}favoritelist/${serviceId}/${userId}`);
+  }
+
+  updateService(serviceId, reqBody, token) {
+    return axios.put(`${API_URL}services/update/${serviceId}`, reqBody, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  uploadFile(serviceId, file) {
+    return axios.post(
+      `${API_URL}file/upload/${serviceId}`,
+      {},
+      {
+        headers: { File: file },
+      }
+    );
+  }
 }
 
 export default new BusinessService();

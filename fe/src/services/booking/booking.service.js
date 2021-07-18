@@ -13,6 +13,12 @@ class BookingService {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+
+  getBookingsByUserId(userId, token) {
+    return axios.get(`${API_URL}bookings/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 export default new BookingService();

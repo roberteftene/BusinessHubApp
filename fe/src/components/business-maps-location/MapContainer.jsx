@@ -9,6 +9,10 @@ const mapStyles = {
 };
 
 export class MapContainer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div className="map-container">
@@ -16,10 +20,8 @@ export class MapContainer extends Component {
           google={this.props.google}
           zoom={16}
           style={mapStyles}
-          initialCenter={{
-            lat: parseFloat(this.props.coord.lat),
-            lng: parseFloat(this.props.coord.lng),
-          }}
+          lat={this.props.lat}
+          lng={this.props.lng}
         >
           <Marker
             position={{ lat: this.props.latitude, lng: this.props.longitude }}

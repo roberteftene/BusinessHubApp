@@ -61,4 +61,13 @@ public class ReviewService {
         .collect(Collectors.toList());
     }
 
+    public List<ReviewModel> getReviewsByUserId(Long userId) {
+
+        return reviewRepository.findAll()
+                .stream()
+                .filter(review -> review.getUserAccount() != null)
+                .filter(review -> review.getUserAccount().getId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
 }
